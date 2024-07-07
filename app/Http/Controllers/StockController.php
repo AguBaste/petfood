@@ -10,8 +10,11 @@ use Illuminate\Http\Request;
 class StockController extends Controller
 {
     public function index(){
-        $stocks = Stock::orderBy('quantity')->paginate(5);
-        //return $stock;
+        //$stocks = Stock::orderBy('quantity')->paginate(5);
+        $stocks = Stock::join('products', 'products.id', '=', 'stocks.product_id')
+        ->join('brands','brands.id','=','products.brand_id')
+        ->orderBy('brands.desc', 'asc')->paginate(5);
+
         return view('stock.index',compact('stocks'));
     }
 }
