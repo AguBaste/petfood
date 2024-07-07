@@ -1,0 +1,81 @@
+* tengo que crear la base de datos acordate 
+    el orden de las tablas para las claves foraneas 
+
+* crear los modelos con hasmany y belongs to 
+
+* proteger la vista dashboard con auth  
+
+* // Verificar si los datos en caché han expirado
+if (Cache::has('products')) {
+    $cachedProducts = Cache::get('products');
+} else {
+    // Realizar una consulta a la base de datos para obtener los productos actualizados
+    $products = Product::all();
+    // Almacenar los datos en caché nuevamente
+    Cache::put('products', $products, $minutes);
+    $cachedProducts = $products;
+}
+
+
+subir fotos 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
+
+public function uploadImage(Request $request)
+{
+    // Valida la imagen (ajusta las reglas según tus necesidades)
+    $request->validate([
+        'image' => 'required|image|max:2048', // Imagen y tamaño máximo de 2MB
+    ]);
+
+    // Obtiene el archivo cargado del Request
+    $file = $request->file('image');
+
+    // Crea un objeto Image a partir de Intervention Image
+    $image = Image::make($file);
+
+    // Modifica la imagen según tus necesidades (por ejemplo, redimensionar)
+    $image->widen(1600, function ($constraint) {
+        $constraint->upsize();
+    });
+    $image->heighten(1600, function ($constraint) {
+        $constraint->upsize();
+    });
+
+    // Genera un nombre único para la imagen
+    $imageName = uniqid() . '-' . $file->getClientOriginalName();
+
+    // Guarda la imagen en una ruta específica (por ejemplo, storage/app/upload_images/)
+    $image->save(storage_path('app/upload_images/' . $imageName));
+
+    // Puedes almacenar $imageName en la base de datos para luego mostrarla en pantalla
+
+    // Ejemplo de respuesta (mensaje de éxito)
+    return back()->with('success', 'Imagen cargada correctamente.');
+}
+
+hacer la columna para envios 
+y hacer el stock
+
+
+
+ public function show(Request $request){
+        $request->validate([
+            'month'=>'required'
+        ]);
+        list($year, $month) = explode('-', $request->input('month'));
+        $totalMonth = Sale::selectRaw('SUM(total)as total, MONTH(created_at) as month, YEAR(created_at) as year')
+        ->whereMonth('created_at', $month)
+        ->whereYear('created_at', $year)
+        ->groupBy('month', 'year')
+        ->get();
+
+        return view('sales.show',compact('totalMonth'));
+    }
+
+
+tengo que sacarle el precio de la tabla product y tengo que hacer una tabla stock que recorra products_purchase
+y vaya agregando el producto a la tabla stock con el precio 
+para ver la lista de precios tengo que consultar stock 
+y para subir el precio lo subo de stock
