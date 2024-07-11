@@ -103,7 +103,6 @@ class ProductController extends Controller
             'race' => 'required',
             'flavor' => 'required',
             'weight' => 'required',
-            'image' => 'required',
             'price' => 'required'
         ]);
         $product->brand_id = (int)$request->brand;

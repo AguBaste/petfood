@@ -17,13 +17,15 @@
                 </option>
             @endforeach
         </select>
+        <label for="precio">Precio por bolsa</label>
+        <input type="text" value="{{$product->price}}" readonly>
         <span>
             @error('product')
                 {{ $message }}
             @enderror
         </span>
-        <label for="quantity">kilos </label>
-        <input type="number" step="0.001" min="0"name="quantity" placeholder="ingrese la cantidad de kilos">
+        <label for="amount">valor </label>
+        <input type="number" step="0.001" min="0"name="amount" placeholder="ingrese el precio de la venta">
 
         <span>
             @error('quantity')
@@ -47,7 +49,7 @@
             <thead>
                 <th>kilos/bolsas</th>
                 <th>Producto</th>
-                <th>Pecio</th>
+                <th>Precio</th>
             </thead>
             <tbody>
                 @foreach ($cart as $item)

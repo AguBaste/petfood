@@ -24,7 +24,7 @@
                 <td>{{ $product->race .' '. $product->flavor }} </td>
                 <td>{{$product->weight}}<span class="texto-verde"> kg</span></td>
                 <td><span class="texto-verde">$</span> {{number_format($product->price * $config->close)}}</td>
-                <td><span class="texto-verde">$</span> {{number_format($product->price/$product->weight * $config->open + $config->expenses)}}</td>
+                <td><span class="texto-verde">$</span> {{round($product->price/$product->weight * $config->open + $config->expenses,-1)}}</td>
                 <td><x-boton>
                     <x-slot name="class">
                         boton azul

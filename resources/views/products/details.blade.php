@@ -15,7 +15,7 @@
             <p>{{ $product->weight }}<span class="texto-verde"> kg</span></p>
             <p><span class="texto-verde">$</span> {{ number_format($product->price * $config->close) }} x Bolsa</p>
             <p><span class="texto-verde">$</span>
-                {{ number_format(($product->price / $product->weight) * $config->open + $config->expenses) }} Suelto</p>
+                {{ round(($product->price / $product->weight) * $config->open + $config->expenses,-1) }} Suelto</p>
         </div>
     </div>
 
