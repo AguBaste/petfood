@@ -46,6 +46,13 @@ class ProductController extends Controller
     }
     public function complete(Product $product)
     {
+
+        return $product;
+    }
+    public function valor(Product $product)
+    {
+        $config = Configuration::first();
+        $product->price = round($product->price*$config->close,-1);
         return $product;
     }
 

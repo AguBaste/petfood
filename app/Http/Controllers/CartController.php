@@ -62,34 +62,7 @@ class CartController extends Controller
     }
     public function store(Request $request)
     {
-    //     $request->validate([
-    //         'product' => 'required',
-    //         'quantity' => 'required',
-    //     ]);
-    //     // me traigo el producto seleccionado para ver el precio.
-
-    //     $weight = Product::where('id',$request->product)->value('weight');
-    //     $price = Product::where('id',$request->product)->value('price');
-    //     $config = Configuration::first();
-    //     $cart = new Cart();
-    //     $cart->product_id = (int)$request->product;
-    //     $cart->quantity = floatval($request->quantity);
-    //     //aca tengo que validar si los kilos son iguales a la bolsa cerrada
-
-    //     if ($cart->quantity% $weight == 0) {
-    //         $cant = $cart->quantity/ $weight;
-    //         $cart->price = ($price*$cant) * $config->close;
-    //     } else {
-    //         $cart->price = round($price / $weight);
-    //         $cart->price *= $config->open;
-    //         $cart->price += (int) $config->expenses;
-    //         $cart->price *= $cart->quantity;
-    //     }
-    //      $cart->price = round($cart->price);
-
-    //     $cart->save();
-    //     return redirect('cart');
-    // }
+   
 
  $request->validate([
             'product' => 'required',

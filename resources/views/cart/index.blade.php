@@ -6,14 +6,14 @@
 
     <h1>nueva venta</h1>
     <img class="imagen" src="{{ asset('img/dolares.jpeg') }}" alt="">
-    <form id="form-venta" class="form fondo" action="{{ route('cart.store') }}" method="post">
+    <form id="form-venta" class="form" action="{{ route('cart.store') }}" method="post">
         @csrf
         <label for="product">Producto</label>
         <select name="product">
             <option value="" disabled selected>seleccione un producto</option>
             @foreach ($products as $product)
-                <option class="option" value="{{ $product->id }}">
-                    {{ $product->brand . ' ' . $product->flavor . ' ' . $product->race . ' ' . $product->weight . ' kg' }}
+                <option class="option" value="{{old('product', $product->id )}}">
+                    {{ $product->brand . ' ' . $product->race . ' ' . $product->flavor . ' ' . $product->weight . ' kg' }}
                 </option>
             @endforeach
         </select>
@@ -23,16 +23,24 @@
                 {{ $message }}
             @enderror
         </span>
-        <label for="">precio X bolsa </label>
-        <input type="text" name="precio" readonly>
-        <label for="amount">valor </label>
-        <input type="number" step="0.001" min="0"name="amount" placeholder="ingrese el precio de la venta">
+        <div class="contenedor-foto-precio">
+            <img name="img" class="imagen-compra" alt="">
+            <div class="">
+                <p>Precio X bolsa</p>
+                <p id="precio"></p>
+                
+        <label for="amount">cantidad de plata</label>
+        <input class="input-compra" type="number" step="0.001" min="0"name="amount" value="{{old('amount')}}" placeholder="kilos a vender">
 
         <span>
-            @error('quantity')
+            @error('amount')
                 {{ $message }}
             @enderror
         </span>
+            </div>
+
+        </div>
+
 
         <x-input-btn>
             <x-slot name="class">
@@ -55,29 +63,19 @@
             <tbody>
                 @foreach ($cart as $item)
                     <tr>
-                        <td> 
+                        <td>
                             @if ($item->quantity === $item->product->weight)
                                 1 <span class="texto-verde">bolsa</span>
                             @else
-                                {{$item->quantity}} <span class="texto-verde"> kg</span>
+                                {{ $item->quantity }} <span class="texto-verde"> kg</span>
                             @endif
                         </td>
-                        <td>{{ $item->product->brand->desc . ' ' . $item->product->flavor->desc . ' ' . $item->product->race->desc }}
+                        <td><div class="contenedor-detalle">
+                            <img class="mini-imagen" src="{{asset('upload/'. $item->product->image)}}" alt="">{{ $item->product->brand->desc . ' ' . $item->product->flavor->desc . ' ' . $item->product->race->desc }}
+                        </div>
                         </td>
                         <td><span class="texto-verde">$</span> {{ number_format($item->price) }}</td>
-                        <td>
-                            <x-boton>
-                                <x-slot name="class">
-                                    boton verde
-                                </x-slot>
-                                <x-slot name="texto">
-                                    Editar
-                                </x-slot>
-                                <x-slot name="href">
-                                    {{ route('cart.edit', $item) }}
-                                </x-slot>
-                            </x-boton>
-                        </td>
+            
                         <td>
                             <form action="{{ route('cart.destroy', $item) }}" method="post">
                                 @csrf
@@ -123,7 +121,4 @@
             </x-input-btn>
         </form>
     @endif
-
-
-
 @endsection

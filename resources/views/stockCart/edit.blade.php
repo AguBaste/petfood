@@ -8,16 +8,10 @@
     @csrf
     @method('patch')
 
-        <select hidden name="product">
-            @foreach ($products as $product)
-                <option  value="{{ $product->id }}" {{$product->id == $stockCart->product_id ? 'selected' :''}} >
-                    {{ $product->brand . ' ' . $product->flavor . ' ' . $product->race.' '.$product->weight .' kilos' }}</option>
-            @endforeach
-        </select>
+        <input type="text" name="product" value="{{$stockCart->product_id}}" hidden>
 
     <label for="quantity">Cantidad </label>
-        <input type="number" step="{{$product->weight}}" min="0"name="quantity" value="{{$stockCart->quantity}}">
-
+        <input type="number" step="{{$product[0]->weight}}" min="0" name="quantity" value="{{old('quantity',$stockCart->quantity)}}">
     <span>
         @error('quantity')
         {{ $message }}
@@ -25,7 +19,7 @@
     </span>
   
     <label for="price">Precio </label>
-        <input type="number" step="0.01" min="0"name="price" value="{{$stockCart->price/$stockCart->quantity}}">
+        <input type="number" step="0.01" min="0"name="price" value="{{$stockCart->price}}">
   
     <span>
         @error('price')
@@ -33,16 +27,6 @@
     @enderror
     </span>
  
-
-        <select hidden name="provider">
-            @foreach ($providers as $provider)
-                <option class="option" value="{{ $provider->id ? 'selected' : '' }}">
-                    {{ $provider->name}}</option>
-            @endforeach
-        </select>
-
-     
-    </label>
     <x-input-btn>
         <x-slot name="class">
             boton verde

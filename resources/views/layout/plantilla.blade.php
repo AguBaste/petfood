@@ -39,7 +39,7 @@
         </div>
     </main>
 
-    @vite(['resources/js/app.js'])
+    @vite(['resources/js/app.js','resources/js/venta.js'])
 </body>
 
 </html>

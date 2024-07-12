@@ -22,7 +22,7 @@ Route::get('/', HomeController::class)->name('dashboard');
 Route::resource('products', ProductController::class);
 Route::get('products/{product}/details',[ProductController::class,'details'])->name('products.details');
 Route::get('products/{product}/complete',[ProductController::class,'complete'])->name('products.complete');
-
+Route::get('products/{product}/valor',[ProductController::class,'valor'])->name('products.valor');
 //rutas para el carrito de ventas 
 Route::resource('cart', CartController::class);
 

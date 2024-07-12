@@ -185,8 +185,9 @@ img {
 .form {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     text-align: center;
-    width: auto;
+    max-width: 50rem;
 }
 
 select,
@@ -378,4 +379,26 @@ input:focus {
 .imagen-detalle{
     width: 350px;
     height: 500px;
+}
+
+.imagen-compra{
+    width: 15rem;
+}
+.contenedor-foto-precio{
+    display: none;  
+}
+.mini-imagen{
+    width: 5rem;
+}
+.contenedor-detalle{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.contenedor-compra-detalle{
+    display: flex;
+    flex-direction: column;
+}
+.input-compra{
+    width: 20rem;
 }
