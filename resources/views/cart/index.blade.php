@@ -6,7 +6,7 @@
 
     <h1>nueva venta</h1>
     <img class="imagen" src="{{ asset('img/dolares.jpeg') }}" alt="">
-    <form class="form fondo" action="{{ route('cart.store') }}" method="post">
+    <form id="form-venta" class="form fondo" action="{{ route('cart.store') }}" method="post">
         @csrf
         <label for="product">Producto</label>
         <select name="product">
@@ -17,13 +17,14 @@
                 </option>
             @endforeach
         </select>
-        <label for="precio">Precio por bolsa</label>
-        <input type="text" value="{{$product->price}}" readonly>
+
         <span>
             @error('product')
                 {{ $message }}
             @enderror
         </span>
+        <label for="">precio X bolsa </label>
+        <input type="text" name="precio" readonly>
         <label for="amount">valor </label>
         <input type="number" step="0.001" min="0"name="amount" placeholder="ingrese el precio de la venta">
 
@@ -54,11 +55,11 @@
             <tbody>
                 @foreach ($cart as $item)
                     <tr>
-                        <td>
-                            @if ($item->quantity < 1)
-                                {{ $item->quantity }}
+                        <td> 
+                            @if ($item->quantity === $item->product->weight)
+                                1 <span class="texto-verde">bolsa</span>
                             @else
-                                {{ $item->quantity % $item->product->weight == 0 ? $item->quantity / $item->product->weight . ' bolsa/s' : $item->quantity . ' kg' }}
+                                {{$item->quantity}} <span class="texto-verde"> kg</span>
                             @endif
                         </td>
                         <td>{{ $item->product->brand->desc . ' ' . $item->product->flavor->desc . ' ' . $item->product->race->desc }}

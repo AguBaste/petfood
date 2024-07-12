@@ -12,7 +12,7 @@
                 <option value="" disabled selected>seleccione un producto</option>
                 @foreach ($products as $product)
                     <option class="option" value="{{ $product->id }}">
-                        {{ $product->brand . ' ' . $product->flavor . ' ' . $product->race . ' ' . $product->weight . ' kilos' }}
+                        {{ $product->brand . ' '. $product->race . ' '  . $product->flavor . ' ' . $product->weight . ' kilos' }}
                     </option>
                 @endforeach
             </select>
@@ -62,7 +62,7 @@
                 @foreach ($stockCart as $item)
                     <tr>
                         <td>{{ $item->quantity / $item->product->weight . ' bolsa/s' }}</td>
-                        <td>{{ $item->product->brand->desc . ' ' . $item->product->flavor->desc . ' ' . $item->product->race->desc . ' ' . $item->product->weight . ' kg' }}
+                        <td>{{ $item->product->brand->desc . ' ' . $item->product->race->desc . ' ' . $item->product->flavor->desc . ' ' . $item->product->weight . ' kg' }}
                         </td>
                         <td><span class="texto-verde">$</span> {{ number_format($item->price) }}</td>
                         <td>

@@ -97,20 +97,20 @@ class CartController extends Controller
         ]);
         // me traigo el producto seleccionado para ver el precio.
         $config = Configuration::first();
-        $product = Product::select('weight as peso','price as precio')
-        ->where('products.id',$request->product)->first();
+        $product = Product::find($request->product);
 
-        if ($product->precio*$config->close == $request->amount) {
-            $product->precio = ($product->precio * $config->close);
-            $cart = Cart::create([
+        if ($product->price*$config->close == $request->amount) {
+            $product->price = ($product->price * $config->close);
+            Cart::create([
                 'product_id'=> $request->product,
-                'quantity'=>$product->peso,
-                'price'=>$product->precio 
+                'quantity'=>$product->weight,
+                'price'=>$product->price 
             ]);
+            
         } else {
-            $product->precio = round(($product->precio * $config->open + $config->expenses)/$product->peso,-1);
-            $quantity = $request->amount / $product->precio;
-            $cart = Cart::create([
+            $product->price = round(($product->price * $config->open + $config->expenses)/$product->weight,-1);
+            $quantity = $request->amount / $product->price;
+           Cart::create([
                 'product_id'=> $request->product,
                 'quantity'=>round($quantity,3),
                 'price'=>$request->amount

@@ -1,5 +1,21 @@
+const { document } = require("postcss");
+
 // En tu archivo JavaScript
 document.addEventListener('DOMContentLoaded', function() {
+    const select = document.querySelector('#form-venta [name="product"]');
+    const precio = document.querySelector('[name="precio"]');
+
+    select.addEventListener('change',async function(){
+        const id = select.value;
+        console.log(id);
+        try{
+            const response = await fetch(`products/${id}/complete`);
+            const data = await response.json();
+            precio.value = data.price;
+        }catch(error){
+            console.error('Error al obtener detalles del producto',error);
+        }
+    });
 
     const productSelect = document.querySelector('#form-compras [name="product"]');
     const quantityInput = document.querySelector('[name="quantity"]');
