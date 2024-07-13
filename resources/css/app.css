@@ -101,30 +101,16 @@ img {
     border-bottom: .5rem solid var(--blanco);
     color: var(--blanco);
     text-transform: uppercase;
-    border-bottom-left-radius: .5rem ;
-    border-bottom-right-radius: .5rem;
-    display: inline-block;
-    width: auto;
-    height: auto;
-    padding: 0.5rem  2rem; 
-    transition: all 0.3s ease-in-out;   
+
 
 }
 .activo{
     border-bottom: .5rem solid var(--blanco);
     color: var(--blanco);
     text-transform: uppercase;
-    border-bottom-left-radius: .5rem ;
-    border-bottom-right-radius: .5rem;
-    display: inline-block;
-    width: auto;
-    height: auto;
-    padding: 0.5rem  2rem; 
+
 }
-.barra a:active{
-    transform: scale(0.80);
-    
-}
+
 .vista {
     display: flex;
     flex-direction: column;
@@ -382,7 +368,8 @@ input:focus {
 }
 
 .imagen-compra{
-    width: 15rem;
+    max-height: 50%;
+    height: auto;
 }
 .contenedor-foto-precio{
     display: none;  
@@ -395,9 +382,21 @@ input:focus {
     align-items: center;
     justify-content: space-around;
 }
+.contenedor-todo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+.contenedor-todo p{
+    padding: 0rem;
+    margin: .5rem ;
+}
 .contenedor-compra-detalle{
     display: flex;
     flex-direction: column;
+    justify-content: start;
+    gap:2rem;
 }
 .input-compra{
     width: 20rem;

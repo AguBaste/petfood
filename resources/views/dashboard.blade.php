@@ -42,6 +42,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th></th>
                 <th>descripcion</th>
                 <th>cantidad vendida</th>
             </tr>
@@ -49,6 +50,8 @@
         <tbody>
             @foreach ($topSellingProducts as $product)
                 <tr>
+                  
+                    <td><img src="{{asset('upload/'.$product->image)}}" class="mini-imagen" alt=""></td>
                     <td>{{ $product->product->brand->desc . ' ' . $product->product->race->desc . ' ' . $product->product->flavor->desc }}
                     </td>
                     <td><span class="texto-verde">{{ $product->total_sales }} </span>kilos</td>

@@ -11,6 +11,7 @@
         <table class="table">
             <thead>
                 <tr>
+                    <td></td>
                     <th>descripcion</th>
                     <th>quedan</th>
                 </tr>
@@ -19,8 +20,8 @@
 
                 @foreach ($stocks as $stock)
                     <tr>
-                        <td>{{ $stock->product->brand->desc . ' ' . $stock->product->race->desc . ' ' . $stock->product->flavor->desc . ' ' . $stock->product->weight . ' kg' }}
-                        </td>
+                        <td><img src="{{asset('upload/'.$stock->image)}}" class="mini-imagen" alt=""></td>
+                        <td>{{ $stock->product->brand->desc . ' ' . $stock->product->race->desc . ' ' . $stock->product->flavor->desc . ' ' . $stock->product->weight . ' kg' }}   </td>
                         {{-- hacer un if y modificar los span sacarlos del table y poner
                         .span-verde o span-rojo --}}
                         <td><span

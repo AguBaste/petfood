@@ -12,7 +12,7 @@
         <select name="product">
             <option value="" disabled selected>seleccione un producto</option>
             @foreach ($products as $product)
-                <option class="option" value="{{old('product', $product->id )}}">
+                <option class="option" value="{{ old('product', $product->id) }}">
                     {{ $product->brand . ' ' . $product->race . ' ' . $product->flavor . ' ' . $product->weight . ' kg' }}
                 </option>
             @endforeach
@@ -25,31 +25,34 @@
         </span>
         <div class="contenedor-foto-precio">
             <img name="img" class="imagen-compra" alt="">
-            <div class="">
+            <div class="contenedor-todo">
                 <p>Precio X bolsa</p>
-                <p id="precio"></p>
-                
-        <label for="amount">cantidad de plata</label>
-        <input class="input-compra" type="number" step="0.001" min="0"name="amount" value="{{old('amount')}}" placeholder="kilos a vender">
+                <p id="precioBolsa"><span class="texto-verde">$ </span></p>
+                <p>Precio X kilo</p>
+                <p id="precioKilo"><span class="texto-verde">$ </span></p>
+                <label for="amount">cantidad de plata</label>
+                <input class="input-compra" type="number" step="0.001" min="0"name="amount"
+                    value="{{ old('amount') }}" placeholder="plata a vender">
 
-        <span>
-            @error('amount')
-                {{ $message }}
-            @enderror
-        </span>
+                <span>
+                    @error('amount')
+                        {{ $message }}
+                    @enderror
+                </span>
+                <x-input-btn>
+                    <x-slot name="class">
+                        boton-form azul
+                    </x-slot>
+                    <x-slot name="value">
+                        Agregar mas productos
+                    </x-slot>
+                </x-input-btn>
             </div>
+
 
         </div>
 
 
-        <x-input-btn>
-            <x-slot name="class">
-                boton-form azul
-            </x-slot>
-            <x-slot name="value">
-                Agregar mas productos
-            </x-slot>
-        </x-input-btn>
     </form>
     @isset($cart)
     @endisset
@@ -70,12 +73,14 @@
                                 {{ $item->quantity }} <span class="texto-verde"> kg</span>
                             @endif
                         </td>
-                        <td><div class="contenedor-detalle">
-                            <img class="mini-imagen" src="{{asset('upload/'. $item->product->image)}}" alt="">{{ $item->product->brand->desc . ' ' . $item->product->flavor->desc . ' ' . $item->product->race->desc }}
-                        </div>
+                        <td>
+                            <div class="contenedor-detalle">
+                                <img class="mini-imagen" src="{{ asset('upload/' . $item->product->image) }}"
+                                    alt="">{{ $item->product->brand->desc . ' ' . $item->product->flavor->desc . ' ' . $item->product->race->desc }}
+                            </div>
                         </td>
                         <td><span class="texto-verde">$</span> {{ number_format($item->price) }}</td>
-            
+
                         <td>
                             <form action="{{ route('cart.destroy', $item) }}" method="post">
                                 @csrf

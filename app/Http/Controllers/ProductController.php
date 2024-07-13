@@ -52,8 +52,11 @@ class ProductController extends Controller
     public function valor(Product $product)
     {
         $config = Configuration::first();
-        $product->price = round($product->price*$config->close,-1);
-        return $product;
+        $data=[]; 
+        $data['bolsa'] = $product->price = round($product->price*$config->close,-1);
+        $data['kilo'] =  round(($product->price / $product->weight) * $config->open + $config->expenses,-1);
+        $data['image'] = $product->image;
+        return $data;
     }
 
     public function create()

@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const select = document.querySelector('#form-venta [name="product"]');
     select.addEventListener("change", async function () {
         const id = select.value;
-        const precio = document.querySelector('#precio');
+        const precioBolsa = document.querySelector('#precioBolsa');
+        const precioKilo = document.querySelector('#precioKilo')
         const contenedor = document.querySelector('.contenedor-foto-precio');
         const img = document.querySelector('[name="img"]');
 
@@ -11,7 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
             console.log(data);
             contenedor.style.display = 'flex';
-            precio.innerHTML = "$ " + data.price ;
+            precioBolsa.innerHTML += data.bolsa ;
+            precioKilo.innerHTML += data.kilo
             img.src = "upload/"+data.image;
         } catch (error) {
             console.error("Error al obtener detalles del producto", error);

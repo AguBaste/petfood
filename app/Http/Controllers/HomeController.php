@@ -41,13 +41,13 @@ class HomeController extends Controller
         $firstDayOfMonth = Carbon::now()->startOfMonth();
         $lastDayOfMonth = Carbon::now()->endOfMonth();
         $topSellingProducts = ProductsSales::select([
-            'products_sales.product_id',
+            'products_sales.product_id','products.image',
             DB::raw('SUM(products_sales.quantity) as total_sales')
         ])
             ->join('products', 'products_sales.product_id', '=', 'products.id')
             ->join('sales', 'products_sales.id', '=', 'sales.id')
             ->whereBetween('sales.created_at',[$firstDayOfMonth,$lastDayOfMonth])
-            ->groupBy('products_sales.product_id')
+            ->groupBy('products_sales.product_id','products.image')
             ->orderByDesc('total_sales')
             ->take(5)
             ->get();
