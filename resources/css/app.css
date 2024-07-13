@@ -401,3 +401,7 @@ input:focus {
 .input-compra{
     width: 20rem;
 }
+.buscador{
+    margin-top: 5rem;
+    display: flex;
+}

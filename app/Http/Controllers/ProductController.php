@@ -51,10 +51,11 @@ class ProductController extends Controller
     }
     public function valor(Product $product)
     {
+        $price =  $product->price;
         $config = Configuration::first();
         $data=[]; 
-        $data['bolsa'] = $product->price = round($product->price*$config->close,-1);
-        $data['kilo'] =  round(($product->price / $product->weight) * $config->open + $config->expenses,-1);
+        $data['bolsa'] = round($price*$config->close,-1);
+        $data['kilo'] =  round(($price / $product->weight) * $config->open + $config->expenses, -1) ;
         $data['image'] = $product->image;
         return $data;
     }
@@ -63,9 +64,6 @@ class ProductController extends Controller
     {
         $brands = Brand::orderBy('desc', 'asc')->get();
 
-        $races = Race::orderBy('desc', 'asc')->get();
-        $flavors = Flavor::orderBy('desc', 'asc')->get();
-        return view('products.create', compact('brands', 'races', 'flavors'));
     }
     public function store(Request $request)
     {

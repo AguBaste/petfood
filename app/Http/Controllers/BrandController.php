@@ -37,4 +37,8 @@ class BrandController extends Controller
 
         return redirect('brands');
     }
+    public function show(String $brand){
+        $brand = Brand::where('brands.desc',$brand)->first();
+        return $brand;
+    }
 }
