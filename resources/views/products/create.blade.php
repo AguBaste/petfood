@@ -11,7 +11,7 @@
             <select name="brand">
                 <option value="" disabled selected>seleccione una marca</option>
                 @foreach ($brands as $brand)
-                    <option value="{{ $brand->id }}">{{ $brand->desc }}</option>
+                    <option value="{{old('brand', $brand->id) }}">{{ $brand->desc }}</option>
                 @endforeach
             </select>
         
@@ -63,7 +63,7 @@
        
         <label for="image">Imagen</label> 
             <input type="file" name="image" >
-
+            <img  class="mini-imagen" id="img" alt="">
         <span>
             @error('image'){{$message}}
             @enderror

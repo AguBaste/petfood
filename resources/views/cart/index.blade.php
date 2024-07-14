@@ -12,8 +12,8 @@
         <select name="product">
             <option value="" disabled selected>seleccione un producto</option>
             @foreach ($products as $product)
-                <option class="option" value="{{ old('product', $product->id) }}">
-                    {{ $product->brand . ' ' . $product->race . ' ' . $product->flavor . ' ' . $product->weight . ' kg' }}
+                <option class="option" value="{{ $product->id }}">
+                   {{$product->brand . ' '. $product->race. ' '.$product->flavor .' '.$product->weight .' kg'}}
                 </option>
             @endforeach
         </select>

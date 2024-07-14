@@ -69,7 +69,7 @@
      
         <label for="image">Imagen </label>
             <input  type="file" name="image" >
-
+            <img src="{{asset('upload/'.$product->image)}}" class="mini-imagen" id="img">
         <span>
             @error('image'){{$message}}
             @enderror

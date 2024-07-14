@@ -63,6 +63,9 @@ class ProductController extends Controller
     public function create()
     {
         $brands = Brand::orderBy('desc', 'asc')->get();
+        $races = Race::orderBy('desc','asc')->get();
+        $flavors = Flavor::orderBy('desc','asc')->get();
+        return view('products.create',compact('brands','races','flavors'));
 
     }
     public function store(Request $request)
