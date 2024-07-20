@@ -14,6 +14,8 @@ use App\Http\Controllers\StockCartController;
 use App\Http\Controllers\AumentosController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\SecurityController;
+
 
 use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class)->name('dashboard');
@@ -55,3 +57,6 @@ Route::resource('purchases',PurchaseController::class);
 
 // rutas para el stock
 Route::resource('stock',StockController::class);
+
+// rutas de seguridad
+Route::resource('security',SecurityController::class);

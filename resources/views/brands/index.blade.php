@@ -16,6 +16,8 @@
             boton verde
         </x-slot>
     </x-boton>
+
+ 
    
     <table class="table">
 
@@ -54,5 +56,5 @@
             @endforeach
         </tbody>
     </table>
-    {{ $brands->links() }}
+    {{ $brands->links() }} 
 @endsection

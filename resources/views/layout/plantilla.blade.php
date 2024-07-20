@@ -32,6 +32,8 @@
                 <p><a href="{{ route('purchases.index') }}"class="{{request()->routeIs('purchases.index') ? 'activo': ''}}">resumen de compras</a></p>
                 <p><a href="{{ route('aumentos.index') }}"class="{{request()->routeIs('aumentos.index') ? 'activo': ''}}">Aumentos por marca</a></p>
                 <p><a href="{{ route('configurations.index') }}"class="{{request()->routeIs('configurations.index') ? 'activo': ''}}">Configuraciones</a></p>
+                <p><a href="{{ route('security.index') }}"class="{{request()->routeIs('security.index') ? 'activo': ''}}">copia seguridad</a></p>
+
             </div>
         </aside>
         <div class="vista">

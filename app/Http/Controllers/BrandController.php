@@ -37,8 +37,11 @@ class BrandController extends Controller
 
         return redirect('brands');
     }
-    public function show(String $brand){
-        $brand = Brand::where('brands.desc',$brand)->first();
-        return $brand;
+    public function find(Brand $brand){
+        $products = Product::join('brands','products.brand_id','=','brands.id')
+        ->where('products.brand_id',$brand)
+        ->orderBy('brands.desc','asc')
+        ->get();
+        return $products;
     }
 }
