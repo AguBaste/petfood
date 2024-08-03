@@ -103,4 +103,13 @@ class PurchaseController extends Controller
         return redirect('stockCart');
 
     }
+    
+    public function destroy(Purchase $purchase){
+        $detalleCompra = ProductsPurchase::where('purchase_id',$purchase->id)->first();
+        $stock = Stock::where('product_id',$detalleCompra->product_id)->first();
+        $stock->quantity -= $detalleCompra->quantity;
+        $stock->save();
+        $purchase->delete();
+        return view('layout.exito');
+    }
 }

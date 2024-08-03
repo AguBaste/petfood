@@ -3,6 +3,7 @@
 @section('titulo', 'ventas')
 
 @section('content')
+<h1>Detalle de venta</h1>
     <table class="table">
         <thead>
             <tr>
@@ -52,6 +53,7 @@
 
 
                     <td><span class="texto-verde">$ </span>{{ number_format($sale->price) }}</td>
+                    
                 </tr>
             @endif
                 
