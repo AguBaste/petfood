@@ -405,3 +405,8 @@ input:focus {
     margin-top: 5rem;
     display: flex;
 }
+.btn-container{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}

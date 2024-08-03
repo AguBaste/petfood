@@ -37,9 +37,12 @@ class BrandController extends Controller
 
         return redirect('brands');
     }
-    public function find(Brand $brand){
-        $products = Product::join('brands','products.brand_id','=','brands.id')
-        ->where('products.brand_id',$brand)
+    public function find($id){
+        $products = Product::select('products.*','products.id','brands.desc as brand','flavors.desc as flavor','races.desc as race')
+        ->join('brands','products.brand_id','=','brands.id')
+        ->join('flavors','products.flavor_id','=','flavors.id')
+        ->join('races','products.race_id','=','races.id')
+        ->where('brands.id',$id)
         ->orderBy('brands.desc','asc')
         ->get();
         return $products;

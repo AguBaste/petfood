@@ -35,6 +35,6 @@ class AumentosController extends Controller
                 $product->update(['price'=> $product->price*floatval($request->valor)]);
             }
             $config = Configuration::first();
-        return view('products.index',compact('products','config'));
+        return redirect(route('dashboard'));
     }
 }

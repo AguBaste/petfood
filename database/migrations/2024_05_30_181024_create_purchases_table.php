@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->decimal('total',10,2);
-            $table->foreignId('provider_id')->constrained();
+            $table->foreignId('provider_id')->cascade();
             $table->timestamps();
         });
     }

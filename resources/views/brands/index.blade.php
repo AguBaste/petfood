@@ -17,11 +17,17 @@
         </x-slot>
     </x-boton>
 
- 
-   
-    <table class="table">
 
-        <tbody>
+    <table id="brandTable" class="table">
+        <thead>
+            <tr>
+                <td>imagen</td>
+                <td>descripcion</td>
+                <td>opciones </td>
+            </tr>
+        </thead>
+
+ <tbody>
             @foreach ($brands as $brand)
                 <tr>
                     <td>{{ $brand->desc }}</td>
@@ -56,5 +62,7 @@
             @endforeach
         </tbody>
     </table>
+
+
     {{ $brands->links() }} 
 @endsection

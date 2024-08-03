@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('products_purchases', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('purchase_id')->constrained();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('purchase_id')->cascade();
+            $table->foreignId('product_id')->cascade();
             $table->float('quantity');
             $table->decimal('price',10,2);
             $table->timestamps();

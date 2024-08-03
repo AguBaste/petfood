@@ -33,7 +33,7 @@ Route::resource('sales', SaleController::class);
 
 // rutas para administra las marcas 
 Route::resource('brands', BrandController::class);
-
+Route::get('brands/{id}/find',[BrandController::class,'find'])->name('brands.find');
 // rutas para admitistra las razas 
 Route::resource('races', RaceController::class);
 

@@ -18,10 +18,11 @@
                 <td>{{ $sale->created_at->format('H:i') }}</td>
                 <td>{{ $sale->payment->desc }}</>
                 </td>
-                <td><span class="texto-verde">$</span>{{number_format( $sale->total) }}</td>
+                <td><span class="texto-verde">$</span>{{ number_format($sale->total) }}</td>
             </tr>
         </tbody>
     </table>
+
     <table class="table">
         <thead>
             <tr>
@@ -32,6 +33,12 @@
         </thead>
         <tbody>
             @foreach ($detailSale as $sale)
+            @if ($sale->product ==null)
+            <tr>
+                <td>no hay detalles, el producto fue borrado</td>
+
+            </tr>
+            @else
                 <tr>
                     <td>
                         @if ($sale->quantity < 1)
@@ -42,10 +49,25 @@
                     </td>
                     <td>{{ $sale->product->brand->desc . ' ' . $sale->product->race->desc . ' ' . $sale->product->flavor->desc }}
                     </td>
-                    <td><span class="texto-verde">$ </span>{{number_format( $sale->price) }}</td>
+
+
+                    <td><span class="texto-verde">$ </span>{{ number_format($sale->price) }}</td>
                 </tr>
+            @endif
+                
             @endforeach
         </tbody>
     </table>
-
+    <form action="{{ route('sales.destroy', $sale) }}" method="post">
+        @csrf
+        @method('delete')
+        <x-input-btn>
+            <x-slot name="value">
+                borar
+            </x-slot>
+            <x-slot name="class">
+                boton-form rojo
+            </x-slot>
+        </x-input-btn>
+    </form>
 @endsection

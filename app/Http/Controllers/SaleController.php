@@ -98,4 +98,12 @@ class SaleController extends Controller
         //regreso a la vista principal 
         return redirect('cart');
     }
+    public function destroy(Sale $sale){
+        $detalleVenta = ProductsSales::where('sale_id',$sale->id)->first();
+        $stock = Stock::where('product_id',$detalleVenta->product_id)->first();
+        $stock->quantity += $detalleVenta->quantity;
+        $stock->save();
+        $sale->delete();
+        return view('layout.exito');
+    }
 }

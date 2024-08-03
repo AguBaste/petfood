@@ -18,8 +18,8 @@
                 {{ round(($product->price / $product->weight) * $config->open + $config->expenses,-1) }} Suelto</p>
         </div>
     </div>
-
-    <x-boton>
+<div class="btn-container">
+<x-boton>
         <x-slot name="class">
             boton verde
         </x-slot>
@@ -30,6 +30,19 @@
             {{ route('products.edit', $product) }}
         </x-slot>
     </x-boton>
+    <form action="{{route('products.destroy',$product)}}" method="post">
+         @csrf
+         @method('delete')
+        <x-input-btn> 
+            <x-slot name="value">
+                borar
+            </x-slot>
+            <x-slot name="class">
+                boton-form rojo
+            </x-slot>
+        </x-input-btn>
+    </form>
 
-
+</div>
+    
 @endsection
