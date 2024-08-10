@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 class ConfigurationController extends Controller
 {
     public function index(){
-        $config = Configuration::all();
-        //return $configuration;
+        $config = Configuration::first();
         return view('configurations.index', compact('config'));
     }
     public function create(){
@@ -39,10 +38,11 @@ class ConfigurationController extends Controller
             'close'=>'required',
             'expenses'=>'required'
         ]);
+        $open = '1.'.$request->open;
+        $close = '1.'.$request->close;
         $config = Configuration::first();
-
-        $config->open = $request->open;
-        $config->close = $request->close;
+        $config->open = $open;
+        $config->close = $close;
         $config->expenses = $request->expenses;
         
         $config->save();

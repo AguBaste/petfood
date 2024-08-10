@@ -69,9 +69,9 @@ class ExpensesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Expenses $expenses)
+    public function destroy(Expenses $expense)
     {
-        $expenses->delete();
+        $expense->delete();
         return redirect('expenses')->with('status','gasto eliminado exitosamente');
     }
 }

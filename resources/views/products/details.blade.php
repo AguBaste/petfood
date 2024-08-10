@@ -13,9 +13,9 @@
             <p>{{ $product->race->desc }}</p>
             <p>{{ $product->flavor->desc }}</p>
             <p>{{ $product->weight }}<span class="texto-verde"> kg</span></p>
-            <p><span class="texto-verde">$</span> {{ round($product->price * $config->close, -1) }} x Bolsa</p>
+            <p><span class="texto-verde">$</span> {{ number_format(round($product->price * $config->close, -1)) }} x Bolsa</p>
             <p><span class="texto-verde">$</span>
-                {{ round(($product->price / $product->weight) * $config->open + $config->expenses, -1) }} Suelto</p>
+                {{number_format(round(($product->price / $product->weight) * $config->open + $config->expenses, -1)) }} Suelto</p>
         </div>
     </div>
     <div class="btn-container">

@@ -22,7 +22,8 @@ class AumentosController extends Controller
         $request->validate([
             'valor'=>'required'
         ]);
-
+        $request->valor = '1.'.$request->valor;
+        $aumento = $request->valor;
           $products = Product::select('products.*', 'brands.desc AS brand', 'flavors.desc AS flavor', 'races.desc AS race')
             ->join('brands', 'products.brand_id', '=', 'brands.id')
             ->join('flavors', 'products.flavor_id', '=', 'flavors.id')
@@ -30,11 +31,9 @@ class AumentosController extends Controller
             ->where('products.brand_id', $brandId)
             ->orderBy('races.desc')
             ->get();
-            
             foreach($products as $product){
-                $product->update(['price'=> $product->price*floatval($request->valor)]);
+                $product->update(['price'=> $product->price*$aumento]);
             }
-            $config = Configuration::first();
-        return redirect(route('dashboard'))->with('status','precios aumentados exitosamente.');
+        return redirect(route('products.show',$brandId))->with('status','precios aumentados exitosamente.');
     }
 }

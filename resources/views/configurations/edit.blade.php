@@ -8,7 +8,7 @@
         @csrf
         @method('patch')
         <label for="close">% Bolsa </label>
-            <input type="number" step="0.01" min="0" name="close" value="{{$config->close}}">
+            <input type="number" step="0.01" min="0" name="close" value="{{($config->close - 1) *100}}">
        
         <span>  
             @error('close')
@@ -16,7 +16,7 @@
         @enderror
         </span>
         <label for="open">% Kilo</label>
-            <input type="number" step="0.01" min="0" name="open" value="{{$config->open}}">
+            <input type="number" step="0.01" min="0" name="open" value="{{($config->open-1)*100}}">
         
         <span>  
             @error('open')

@@ -36,6 +36,16 @@
                 @endif
             </h1>
         </div>
+        <div class="tarjeta tarjeta-roja">
+            <h2>gastos del mes </h2>
+            <h1><span class="span">$ </span>
+                @if (!empty($expenses && isset($expenses[0]->total)))
+                    {{ number_format($expenses[0]->total) }}
+                @else
+                    0
+                @endif
+            </h1>
+        </div>
     </div>
     <h1>top 5 productos mas vendidos del mes</h1>
     <img src="{{ asset('img/podio.jpeg') }}" alt="" class="imagen">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductsSales;
 use App\Models\Purchase;
+use App\Models\Expenses;
 use App\Models\Sale;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -37,6 +38,11 @@ class HomeController extends Controller
             ->whereYear('created_at', $anio)
             ->groupBy('month', 'year')
             ->get();
+        $expenses = Expenses::selectRaw('SUM(price) as total, MONTH(created_at) as month, YEAR(created_at) as year')
+            ->whereMonth('created_at',$mes)
+            ->whereYear('created_at',$anio)
+            ->groupBy('month','year')
+            ->get();
 
         $firstDayOfMonth = Carbon::now()->startOfMonth();
         $lastDayOfMonth = Carbon::now()->endOfMonth();
@@ -51,6 +57,6 @@ class HomeController extends Controller
             ->orderByDesc('total_sales')
             ->take(5)
             ->get();
-        return view('dashboard', compact('sales', 'salesDia', 'purchases', 'topSellingProducts'));
+        return view('dashboard', compact('sales', 'salesDia', 'purchases', 'topSellingProducts','expenses'));
     }
 }

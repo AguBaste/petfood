@@ -11,7 +11,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <td>descripcion</td>
+                    <td>descripción</td>
                     <td>kilos </td>
                     <td>precio x bolsa</td>
                     <td>precio x kilo</td>
@@ -28,9 +28,9 @@
                             </div>
                         </td>
                         <td>{{ $product->weight }}<span class="texto-verde"> kg</span></td>
-                        <td><span class="texto-verde">$</span> {{ round($product->price * $config->close, -1) }}</td>
+                        <td><span class="texto-verde">$</span> {{ number_format(round($product->price * $config->close, -1)) }}</td>
                         <td><span class="texto-verde">$</span>
-                            {{ round(($product->price / $product->weight) * $config->open + $config->expenses, -1) }}</td>
+                            {{ number_format(round(($product->price / $product->weight) * $config->open + $config->expenses, -1)) }}</td>
                         <td><x-boton>
                                 <x-slot name="class">
                                     boton azul

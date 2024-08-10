@@ -48,10 +48,6 @@ class SecurityController extends Controller
         $nombreArchivo = 'backup.txt'; // Nombre del archivo
         Storage::put($nombreArchivo, $contenido);
 
-
-        $nombreArchivo = 'backup.txt'; // Nombre del archivo
-        Storage::put($nombreArchivo, $contenido);
-
         return redirect(route('dashboard'))->with('status','copia de seguridad realizada exitosamente');
     }
 

@@ -31,21 +31,11 @@
                     <td>{{ $expense->desc }}</td>
                     <td><span class="texto-verde">$ </span>{{ number_format($expense->price) }}</td>
                     <td>{{ $expense->created_at->format('d-m-Y') }}</td>
-                    <td><x-boton>
-                            <x-slot name="class">
-                                boton azul
-                            </x-slot>
-                            <x-slot name="texto">
-                                editar
-                            </x-slot>
-                            <x-slot name="href">
-                                {{ route('expenses.show', $expense) }}
-                            </x-slot>
-                        </x-boton></td>
+
                     <td>
                         <form action="{{ route('expenses.destroy', $expense->id) }}" method="post">
                             @csrf
-                            @method('delete')
+                            @method('DELETE')
                             <x-input-btn>
                                 <x-slot name="class">
                                     boton-form rojo
