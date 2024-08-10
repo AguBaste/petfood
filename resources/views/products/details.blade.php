@@ -13,29 +13,29 @@
             <p>{{ $product->race->desc }}</p>
             <p>{{ $product->flavor->desc }}</p>
             <p>{{ $product->weight }}<span class="texto-verde"> kg</span></p>
-            <p><span class="texto-verde">$</span> {{ round($product->price * $config->close,-1) }} x Bolsa</p>
+            <p><span class="texto-verde">$</span> {{ round($product->price * $config->close, -1) }} x Bolsa</p>
             <p><span class="texto-verde">$</span>
-                {{ round(($product->price / $product->weight) * $config->open + $config->expenses,-1) }} Suelto</p>
+                {{ round(($product->price / $product->weight) * $config->open + $config->expenses, -1) }} Suelto</p>
         </div>
     </div>
-<div class="btn-container">
-<x-boton>
-        <x-slot name="class">
-            boton verde
-        </x-slot>
-        <x-slot name="texto">
-            editar
-        </x-slot>
-        <x-slot name="href">
-            {{ route('products.edit', $product) }}
-        </x-slot>
-    </x-boton>
-    <form action="{{route('products.destroy',$product)}}" method="post">
-         @csrf
-         @method('delete')
-       <input type="submit" class=" boton rojo" id="borrar" value="borrar">
-    </form>
+    <div class="btn-container">
+        <x-boton>
+            <x-slot name="class">
+                boton verde
+            </x-slot>
+            <x-slot name="texto">
+                editar
+            </x-slot>
+            <x-slot name="href">
+                {{ route('products.edit', $product) }}
+            </x-slot>
+        </x-boton>
+        <form action="{{ route('products.destroy', $product) }}" method="post">
+            @csrf
+            @method('delete')
+            <input type="submit" class=" boton rojo" id="borrar" value="borrar">
+        </form>
 
-</div>
-   
+    </div>
+
 @endsection

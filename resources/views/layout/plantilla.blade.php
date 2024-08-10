@@ -41,6 +41,9 @@
                 <p><a
                         href="{{ route('providers.index') }}"class="{{ request()->routeIs('providers.index') ? 'activo' : '' }}">Proveedores</a>
                 </p>
+                 <p><a
+                        href="{{ route('expenses.index') }}"class="{{ request()->routeIs('expenses.index') ? 'activo' : '' }}">gastos negocio</a>
+                </p>
                 <p><a
                         href="{{ route('products.create') }}"class="{{ request()->routeIs('products.index') ? 'activo' : '' }}">alimento
                         para venta</a></p>

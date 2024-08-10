@@ -15,6 +15,8 @@ use App\Http\Controllers\AumentosController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\SecurityController;
+use App\Http\Controllers\ExpensesController;
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -60,3 +62,4 @@ Route::resource('stock',StockController::class);
 
 // rutas de seguridad
 Route::resource('security',SecurityController::class);
+Route::resource('expenses',ExpensesController::class);
