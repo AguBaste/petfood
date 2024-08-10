@@ -31,7 +31,7 @@ class FlavorController extends Controller
     public function update(Request $request, Flavor $flavor){
         $flavor->desc = $request->desc;
         $flavor->update();
-        return view('layout.exito');
+        return redirect('flavors')->with('status','sabor actualizado exitosamente');
     }
     public function store(Request $request)
     {
@@ -40,6 +40,6 @@ class FlavorController extends Controller
         ]);
         Flavor::firstOrCreate(['desc' => $request->desc]);
         
-        return redirect('flavors');
+        return redirect('flavors')->with('status','sabor creado exitosamente');
     }
 }

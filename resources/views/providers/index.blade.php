@@ -18,7 +18,12 @@
     </x-boton>
 
 <table class="table">
-
+    <thead>
+        <tr>
+            <th>nombre</th>
+            <th>teléfono</th>
+        </tr>
+    </thead>
     <tbody>
         @foreach ($providers as $provider)
       <tr>

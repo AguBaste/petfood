@@ -21,9 +21,9 @@
     <table id="brandTable" class="table">
         <thead>
             <tr>
-                <td>imagen</td>
-                <td>descripcion</td>
-                <td>opciones </td>
+                <td>descripción</td>
+                <td>ver</td>
+                <td>editar </td>
             </tr>
         </thead>
 

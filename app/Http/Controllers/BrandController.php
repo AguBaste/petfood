@@ -26,7 +26,7 @@ class BrandController extends Controller
     public function update(Request $request,Brand $brand){
         $brand->desc = $request->desc;
         $brand->update();
-        return view('layout.exito');
+        return redirect(route('brands.index'))->with('status', 'marca actualizada exitosamente');
     }
     public function store(Request $request)
     {
@@ -35,16 +35,7 @@ class BrandController extends Controller
         ]);
         Brand::firstOrCreate(['desc' => $request->desc]);
 
-        return redirect('brands');
+        return redirect(route('brands.index'))->with('status', 'marca registrada exitosamente');
     }
-    public function find($id){
-        $products = Product::select('products.*','products.id','brands.desc as brand','flavors.desc as flavor','races.desc as race')
-        ->join('brands','products.brand_id','=','brands.id')
-        ->join('flavors','products.flavor_id','=','flavors.id')
-        ->join('races','products.race_id','=','races.id')
-        ->where('brands.id',$id)
-        ->orderBy('brands.desc','asc')
-        ->get();
-        return $products;
-    }
+
 }

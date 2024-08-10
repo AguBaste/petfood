@@ -100,7 +100,7 @@ class PurchaseController extends Controller
         }
 
         //regreso a la vista principal 
-        return redirect('stockCart');
+        return redirect('stockCart')->with('status','compra registrada exitosamente');
 
     }
     
@@ -110,6 +110,6 @@ class PurchaseController extends Controller
         $stock->quantity -= $detalleCompra->quantity;
         $stock->save();
         $purchase->delete();
-        return view('layout.exito');
+        return redirect('purchases')->with('status','compra eliminada exitosamente');
     }
 }

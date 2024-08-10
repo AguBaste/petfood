@@ -96,7 +96,7 @@ class ProductController extends Controller
             'image' => $image_name
         ]);
         $config = Configuration::first();
-        return view('products.details', compact('product', 'config'));
+        return redirect(route('products.details',compact('product')))->with('status','producto creado exitosamente');
     }
 
     public function edit(Product $product)
@@ -132,11 +132,11 @@ class ProductController extends Controller
         }
        
         $product->update();
-        return view('layout.exito');
+        return redirect(route('products.details', compact('product')))->with('status','producto actualizado exitosamente.');
     }
     public function destroy(Product $product)
     {
         $product->delete();
-        return view('layout.exito');
+        return redirect(route('brands.index'))->with('status', 'producto eliminado exitosamente.');
     }
 }

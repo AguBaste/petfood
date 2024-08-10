@@ -26,11 +26,10 @@ class ProviderController extends Controller
             'name'=>'required',
             'phone'=>'required'
         ]);
-        $provider->id = $request->id;
         $provider->name = $request->name;
         $provider->phone = $request->phone;
         $provider->update();
-        return view('providers.index');
+        return redirect('providers')->with('status','proveedor actualizado exitosamente');
      }
     public function store(Request $request)
     {
@@ -43,6 +42,6 @@ class ProviderController extends Controller
         $provider->phone = $request->phone;
 
         $provider->save();
-        return redirect('providers');
+        return redirect('providers')->with('status','proveedor registrado exitosamente');
     }
 }

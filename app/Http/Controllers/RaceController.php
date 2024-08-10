@@ -26,7 +26,7 @@ class RaceController extends Controller
     public function update(Request $request, Race $race){
         $race->desc = $request->desc;
         $race->update();
-        return view('layout.exito');
+        return redirect('races')->with('status','raza actualizada exitosamente');
     }
     public function show($raceId)
     {
@@ -44,6 +44,6 @@ class RaceController extends Controller
          Race::firstOrCreate(['desc' => $request->desc]);
 
 
-        return redirect('races');
+        return redirect('races')->with('status','raza registrada exitosamente');
     }
 }

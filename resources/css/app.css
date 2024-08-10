@@ -410,3 +410,32 @@ input:focus {
     align-items: center;
     gap: 20px;
 }
+.exito{
+    background-color: var(--verde);
+    width: 100%;
+    text-align: center;
+
+    border-radius: 1rem;
+    text-transform: uppercase;
+}
+.exito p{
+    color: var(--gris-claro);
+}
+.modal{
+    width: auto;
+    height: auto;
+    border: .2rem solid var(--negro);
+    border-radius: 1rem;
+    position: absolute;
+    background-color: var(--gris-claro);
+    top: 30%;
+    z-index: 1;
+    padding: 2rem;
+    text-align: center;
+}
+.modal a{
+    margin: 2rem;
+}
+.ocultar{
+    visibility: hidden;
+}

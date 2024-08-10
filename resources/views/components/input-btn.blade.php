@@ -1,1 +1,1 @@
-<input type="submit" class="{{$class}}" value="{{$value}}">
+<input type="submit" class="{{$class}}" value="{{$value}}" id="{{ $id ?? 'default-id' }}">

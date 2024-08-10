@@ -21,37 +21,38 @@ class SecurityController extends Controller
      */
     public function index()
     {
-           $products = Product::All();
-           $brands = Brand::All();
-           $races = Race::All();
-           $flavors = Flavor::All();
-       $contenido = "Productos:\n";
-foreach ($products as $product) {
-    $contenido .= "ID: {$product->id}, Marca: {$product->brand_id}, Raza: {$product->race_id}, Sabor: {$product->flavor_id}, Precio: {$product->price}, Peso: {$product->weight}, Imagen: {$product->image}\n";
-}
 
-$contenido .= "\nMarcas:\n";
-foreach ($brands as $brand) {
-   $contenido.="id:{$brand->id}, desc: {$brand->desc}\n";
-}
-$contenido .= "\nRazas:\n";
-foreach ($races as $race) {
-   $contenido.="id:{$race->id}, desc: {$race->desc}\n";
-}
-$contenido .= "\nSabores:\n";
-foreach ($flavors as $flavor) {
-   $contenido.="id:{$flavor->id}, desc: {$flavor->desc}\n";
-}
-// Repite lo mismo para las otras tablas (Razas y Sabores)
+        $products = Product::All();
+        $brands = Brand::All();
+        $races = Race::All();
+        $flavors = Flavor::All();
+        $contenido = "Productos:\n";
+        foreach ($products as $product) {
+            $contenido .= "ID: {$product->id}, Marca: {$product->brand_id}, Raza: {$product->race_id}, Sabor: {$product->flavor_id}, Precio: {$product->price}, Peso: {$product->weight}, Imagen: {$product->image}\n";
+        }
 
-$nombreArchivo = 'backup.txt'; // Nombre del archivo
-Storage::put($nombreArchivo, $contenido);
+        $contenido .= "\nMarcas:\n";
+        foreach ($brands as $brand) {
+        $contenido.="id:{$brand->id}, desc: {$brand->desc}\n";
+        }
+        $contenido .= "\nRazas:\n";
+        foreach ($races as $race) {
+        $contenido.="id:{$race->id}, desc: {$race->desc}\n";
+        }
+        $contenido .= "\nSabores:\n";
+        foreach ($flavors as $flavor) {
+        $contenido.="id:{$flavor->id}, desc: {$flavor->desc}\n";
+        }
+        // Repite lo mismo para las otras tablas (Razas y Sabores)
+
+        $nombreArchivo = 'backup.txt'; // Nombre del archivo
+        Storage::put($nombreArchivo, $contenido);
 
 
-          $nombreArchivo = 'backup.txt'; // Nombre del archivo
-          Storage::put($nombreArchivo, $contenido);
+        $nombreArchivo = 'backup.txt'; // Nombre del archivo
+        Storage::put($nombreArchivo, $contenido);
 
-        return view('layout.exito');
+        return redirect(route('dashboard'))->with('status','copia de seguridad realizada exitosamente');
     }
 
   

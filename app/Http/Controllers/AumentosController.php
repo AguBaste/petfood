@@ -35,6 +35,6 @@ class AumentosController extends Controller
                 $product->update(['price'=> $product->price*floatval($request->valor)]);
             }
             $config = Configuration::first();
-        return redirect(route('dashboard'));
+        return redirect(route('dashboard'))->with('status','precios aumentados exitosamente.');
     }
 }

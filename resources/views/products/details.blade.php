@@ -33,16 +33,9 @@
     <form action="{{route('products.destroy',$product)}}" method="post">
          @csrf
          @method('delete')
-        <x-input-btn> 
-            <x-slot name="value">
-                borar
-            </x-slot>
-            <x-slot name="class">
-                boton-form rojo
-            </x-slot>
-        </x-input-btn>
+       <input type="submit" class=" boton rojo" id="borrar" value="borrar">
     </form>
 
 </div>
-    
+   
 @endsection

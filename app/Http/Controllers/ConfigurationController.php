@@ -47,6 +47,6 @@ class ConfigurationController extends Controller
         
         $config->save();
 
-        return redirect('configurations');
+        return redirect('configurations')->with('status','configuraciones actualizadas exitosamente');
     }
 }
