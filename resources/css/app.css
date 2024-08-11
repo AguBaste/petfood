@@ -430,6 +430,10 @@ input:focus {
     padding: 2rem;
     text-align: center;
 }
+.modal p{
+    text-transform: uppercase;
+
+}
 .modal a{
     margin: 2rem;
 }

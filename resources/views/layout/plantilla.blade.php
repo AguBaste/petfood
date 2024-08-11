@@ -66,11 +66,7 @@
             </div>
         </aside>
         <div class="vista">
-            <div class="modal ocultar" id="modal">
-                <h2>realmente quiere borrar este producto</h2>
-                <a class="boton azul" id="cancelar" href="">cancelar</a>
-                <a class="boton rojo" id="borrar" href="">borrar</a>
-            </div>
+            
             @if (session('status'))
                 <div class="exito">
                     <p>{{ session('status') }}</p>

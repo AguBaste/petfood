@@ -24,4 +24,5 @@
         </x-slot>
     </x-input-btn>
 </form>
+
 @endsection

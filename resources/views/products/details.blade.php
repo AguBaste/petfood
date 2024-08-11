@@ -13,9 +13,11 @@
             <p>{{ $product->race->desc }}</p>
             <p>{{ $product->flavor->desc }}</p>
             <p>{{ $product->weight }}<span class="texto-verde"> kg</span></p>
-            <p><span class="texto-verde">$</span> {{ number_format(round($product->price * $config->close, -1)) }} x Bolsa</p>
+            <p><span class="texto-verde">$</span> {{ number_format(round($product->price * $config->close, -1)) }} x Bolsa
+            </p>
             <p><span class="texto-verde">$</span>
-                {{number_format(round(($product->price / $product->weight) * $config->open + $config->expenses, -1)) }} Suelto</p>
+                {{ number_format(round(($product->price / $product->weight) * $config->open + $config->expenses, -1)) }}
+                Suelto</p>
         </div>
     </div>
     <div class="btn-container">
@@ -30,12 +32,11 @@
                 {{ route('products.edit', $product) }}
             </x-slot>
         </x-boton>
-        <form action="{{ route('products.destroy', $product) }}" method="post">
+       <form action="{{ route('products.destroy', $product) }}" method="post">
             @csrf
             @method('delete')
             <input type="submit" class=" boton rojo" id="borrar" value="borrar">
         </form>
 
     </div>
-
 @endsection

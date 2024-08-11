@@ -54,8 +54,6 @@
 
 
     </form>
-    @isset($cart)
-    @endisset
     @if (count($cart) > 0)
         <table class="table">
             <thead>

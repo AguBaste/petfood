@@ -33,21 +33,17 @@
                     <td>{{ $expense->created_at->format('d-m-Y') }}</td>
 
                     <td>
-                        <form action="{{ route('expenses.destroy', $expense->id) }}" method="post">
+                        <form action="{{ route('expenses.destroy', $expense) }}" method="post">
                             @csrf
-                            @method('DELETE')
-                            <x-input-btn>
-                                <x-slot name="class">
-                                    boton-form rojo
-                                </x-slot>
-                                <x-slot name="value">
-                                    borrar
-                                </x-slot>
-                            </x-input-btn>
+                            @method('delete')
+                            <input type="submit" class=" boton rojo" value="borrar">
                         </form>
                     </td>
                 </tr>
+
+                </div>
             @endforeach
         </tbody>
     </table>
+
 @endsection
