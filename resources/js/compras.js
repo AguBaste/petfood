@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const response = await fetch(`products/${productId}/complete`); // Cambia la ruta a tu endpoint para obtener detalles del producto
             const data = await response.json();
-            console.log(data);
             // Actualiza los campos de cantidad y precio
             contenedor.style.display = "flex";
             priceInput.value = data.price;

@@ -361,18 +361,18 @@ input:focus {
 
 .imagen-detalle{
     width: 350px;
-    height: 500px;
+    height: 100%;
 }
 
 .imagen-compra{
-    max-height: 50%;
-    height: auto;
+    max-height: 350px;
 }
 .contenedor-foto-precio{
     display: none;  
 }
 .mini-imagen{
-    width: 5rem;
+    max-width: 5rem;
+    max-height: 7rem;
 }
 .contenedor-detalle{
     display: flex;

@@ -35,7 +35,6 @@ class ProductController extends Controller
             ->paginate(5);
 
         $config = Configuration::first();
-
         return  view('products.index', compact('products', 'config'));
     }
     public function details(Product $product)
