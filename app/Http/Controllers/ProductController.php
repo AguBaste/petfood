@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Configuration;
 use App\Models\Flavor;
 use App\Models\Product;
+use App\Models\Stock;
 use App\Models\Race;
 use App\Models\Provider;
 use Illuminate\Http\Request;
@@ -17,15 +18,14 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    public function index(Product $products, Configuration $config)
+    public function index(Product $products, Configuration $config,Stock $stock)
     {
 
-        return view('aumentos.index', compact('config', 'products'));
+        return view('products.index', compact('config', 'products','stock'));
     }
     public function show($brandId)
     {
-        // $products = Product::whereIn('brand_id', [$brandId])->get();
-
+        $brand = Brand::where('id',$brandId)->first();
         $products = Product::select('products.*', 'brands.desc AS brand', 'flavors.desc AS flavor', 'races.desc AS race')
             ->join('brands', 'products.brand_id', '=', 'brands.id')
             ->join('flavors', 'products.flavor_id', '=', 'flavors.id')
@@ -33,9 +33,9 @@ class ProductController extends Controller
             ->where('products.brand_id', $brandId)
             ->orderBy('races.desc')
             ->paginate(5);
-
+            $stock = Stock::all();
         $config = Configuration::first();
-        return  view('products.index', compact('products', 'config'));
+        return  view('products.index', compact('products', 'config','brand','stock'));
     }
     public function details(Product $product)
     {

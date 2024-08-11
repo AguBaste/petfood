@@ -17,7 +17,7 @@
             </h1>
         </div>
         <div class="tarjeta tarjeta-azul">
-            <h2>ventas del dia </h2>
+            <h2>ventas del día </h2>
             <h1><span class="span">$ </span>
                 @if (!empty($salesDia && isset($salesDia[0]->total)))
                     {{ number_format($salesDia[0]->total) }}
@@ -53,7 +53,7 @@
         <thead>
             <tr>
                 <th></th>
-                <th>descripcion</th>
+                <th>descripción</th>
                 <th>cantidad vendida</th>
             </tr>
         </thead>

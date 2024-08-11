@@ -3,7 +3,7 @@
 @section('titulo', 'Configuraciones')
 
 @section('content')
-<h1>creando las porcentajes de las ganacias</h1>
+<h1>creando los porcentajes de ganancias</h1>
 <form class="form" action="{{route('configurations.store')}}" method="post">
     @csrf
     <label for="close">% x bolsa cerrada </label>

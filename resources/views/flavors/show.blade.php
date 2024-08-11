@@ -6,30 +6,50 @@
     @isset($products)
     @endisset
     @if (count($products) > 0)
-        <h1 class="titulo">productos de sabor {{ $products[0]->flavor->desc }}</h1>
+        <h1 class="titulo">productos de sabor {{ $flavor->desc }}</h1>
 
         <table class="table">
             <thead>
                 <tr>
-                    <td>descripcion</td>
+                    <td>descripción</td>
                     <td>kilos </td>
-                    <td>precio x bolsa</td>
-                    <td>precio x kilo</td>
+                    <td>x bolsa</td>
+                    <td>x kilo</td>
+                    <td>stock</td>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($products as $product)
                     {{-- <a class="boton" href="{{ route('products.show', $product) }}">Ver Producto</a> --}}
-                    <tr class="row
+                    <tr class="row">
                         <td>
                             <div class="contenedor-detalle">
                                 <img src="{{ asset('upload/' . $product->image) }}" class="mini-imagen"
-                                    alt="">{{ $product->brand->desc . ' ' . $product->race->desc . ' ' . $product->flavor->desc }}
+                                    alt="">{{ $product->brand->desc . ' ' . $product->race->desc }}
                             </div>
                         </td>
-                        <td>{{ $product->weight . ' kg' }}</td>
+                        <td>{{ $product->weight . ' kg' }} <span class="verde"></span> </td>
                         <td>$ {{ $product->price * $config->close }}</td>
                         <td>$ {{ round(($product->price / $product->weight) * $config->open + $config->expenses) }}</td>
+                        @php
+                            $b = false;
+                        @endphp   
+                        @foreach ($stock as $item)
+                            @if ($item->product_id == $product->id)
+                                <td>
+                                    {{ floor($item->quantity / $item->product->weight) }} bolsa
+                                    {{ ($item->quantity / $item->product->weight - floor($item->quantity / $item->product->weight)) * $item->product->weight }}
+                                    kg
+                                </td>
+                                @php
+                                    $b = true;
+                                @endphp
+                                @break
+                            @endif
+                        @endforeach
+                        @if (!$b)
+                                <td>sin stock</td>
+                        @endif
                         <td><x-boton>
                                 <x-slot name="class">
                                     boton azul
@@ -49,6 +69,6 @@
         </table>
         {{ $products->links() }}
     @else
-        <h1>no hay productos del sabor seleccionado</h1>
+        <h1>no hay productos del sabor {{ $flavor->desc }}</h1>
     @endif
 @endsection

@@ -6,15 +6,16 @@
     @isset($products)
     @endisset
     @if (count($products) > 0)
-        <h1 class="titulo"> {{ $products[0]->brand }}</h1>
+        <h1 class="titulo"> {{ $brand->desc }}</h1>
 
         <table class="table">
             <thead>
                 <tr>
                     <td>descripción</td>
                     <td>kilos </td>
-                    <td>precio x bolsa</td>
-                    <td>precio x kilo</td>
+                    <td>x bolsa</td>
+                    <td>x kilo</td>
+                    <td>stock</td>
                 </tr>
             </thead>
             <tbody>
@@ -28,9 +29,32 @@
                             </div>
                         </td>
                         <td>{{ $product->weight }}<span class="texto-verde"> kg</span></td>
-                        <td><span class="texto-verde">$</span> {{ number_format(round($product->price * $config->close, -1)) }}</td>
                         <td><span class="texto-verde">$</span>
-                            {{ number_format(round(($product->price / $product->weight) * $config->open + $config->expenses, -1)) }}</td>
+                            {{ number_format(round($product->price * $config->close, -1)) }}</td>
+                        <td><span class="texto-verde">$</span>
+                            {{ number_format(round(($product->price / $product->weight) * $config->open + $config->expenses, -1)) }}
+                        </td>
+
+                       @php
+                            $b = false;
+                        @endphp   
+                        @foreach ($stock as $item)
+                            @if ($item->product_id == $product->id)
+                                <td>
+                                    {{ floor($item->quantity / $item->product->weight) }} bolsa
+                                    {{ ($item->quantity / $item->product->weight - floor($item->quantity / $item->product->weight)) * $item->product->weight }}
+                                    kg
+                                </td>
+                                @php
+                                    $b = true;
+                                @endphp
+                                @break
+                            @endif
+                        @endforeach
+                        @if (!$b)
+                                <td>sin stock</td>
+                        @endif
+
                         <td><x-boton>
                                 <x-slot name="class">
                                     boton azul
@@ -50,6 +74,6 @@
         </table>
         {{ $products->links() }}
     @else
-        <h1>no hay productos de la marca seleccionada</h1>
+        <h1>no hay productos de la marca {{ $brand->desc }}</h1>
     @endif
 @endsection

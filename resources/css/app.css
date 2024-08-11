@@ -78,7 +78,7 @@ img {
     align-items: center;
     background-color: var(--verde);
     height: 100%;
-    width: 35rem;
+    width: 30rem;
     border-top-right-radius: 2rem;
     border-bottom-right-radius: 2rem;
     box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
@@ -259,21 +259,28 @@ input:focus {
 }
 
 .tarjeta-verde,.tarjeta-azul,.tarjeta-amarilla,.tarjeta-roja,.tarjeta-rosa {
-    border-left: 2rem solid var(--verde);
+    border-left: 1.5rem solid var(--verde);
+    border-right: 1.5rem solid var(--verde);
     border-top-left-radius: 1rem;
+    border-top-right-radius:1rem ;
     border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 .tarjeta-roja{
-    border-left:2rem solid var(--rojo) ;
+    border-left:1.5rem solid var(--rojo) ;
+    border-right: 1.5rem solid var(--rojo);
 }
 .tarjeta-azul {
-    border-left: 2rem solid var(--azul);
+    border-left: 1.5rem solid var(--azul);
+    border-right: 1.5rem solid var(--azul);
 }
 .tarjeta-amarilla {
-    border-left: 2rem solid var(--amarilla);
+    border-left: 1.5rem solid var(--amarilla);
+    border-right: 1.5rem solid var(--amarilla);
 }
 .tarjeta-rosa {
-    border-left: 2rem solid var(--rosa);
+    border-left: 1.5rem solid var(--rosa);
+    border-right: 1.5rem solid var(--rosa);
 }
 .contenedor-ventas {
     display: grid;

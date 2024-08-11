@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Configuration;
 use App\Models\Flavor;
+use App\Models\Stock;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -18,8 +19,10 @@ class FlavorController extends Controller
     {
         $products = Product::whereIn('flavor_id', [$flavorId])->paginate(5);
         $config = Configuration::first();
+        $flavor = Flavor::where('id',$flavorId)->first();
+        $stock = Stock::all();
 
-        return  view('flavors.show', compact('products', 'config'));
+        return  view('flavors.show', compact('products', 'config','flavor','stock'));
     }
     public function create()
     {
