@@ -384,11 +384,7 @@ input:focus {
     max-width: 10rem;
     max-height: 14rem;
 }
-.contenedor-detalle{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
+
 .contenedor-todo{
     display: flex;
     flex-direction: column;

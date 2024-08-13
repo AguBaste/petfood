@@ -22,18 +22,16 @@
                 @foreach ($products as $product)
                     {{-- <a class="boton" href="{{ route('products.show', $product) }}">Ver Producto</a> --}}
                     <tr class="row">
-                        <td>
-                            <div class="contenedor-detalle">
-                                <img src="{{ asset('upload/' . $product->image) }}" class="mini-imagen"
-                                    alt="">{{ $product->brand->desc . ' ' . $product->race->desc . ' ' . $product->flavor->desc }} 
-                            </div>
+                        <td class="det-img">
+                            <img src="{{ asset('upload/' . $product->image) }}" class="mini-imagen" alt="">
+                            {{ $product->brand->desc . ' ' . $product->race->desc . ' ' . $product->flavor->desc }}
                         </td>
                         <td>{{ $product->weight . ' kg' }}</td>
                         <td>$ {{ $product->price * $config->close }}</td>
                         <td>$ {{ round(($product->price / $product->weight) * $config->open + $config->expenses) }}</td>
                         @php
                             $b = false;
-                        @endphp   
+                        @endphp
                         @foreach ($stock as $item)
                             @if ($item->product_id == $product->id)
                                 <td>
@@ -44,32 +42,32 @@
                                 @php
                                     $b = true;
                                 @endphp
-                                @break
-                            @endif
-                        @endforeach
-                        @if (!$b)
-                                <td>sin stock</td>
+                            @break
                         @endif
+                    @endforeach
+                    @if (!$b)
+                        <td>sin stock</td>
+                    @endif
 
-                        <td><x-boton>
-                                <x-slot name="class">
-                                    boton azul
-                                </x-slot>
-                                <x-slot name="texto">
-                                    ver +
-                                </x-slot>
-                                <x-slot name="href">
-                                    {{ route('products.details', $product) }}
-                                </x-slot>
-                            </x-boton></td>
-                @endforeach
-                </tr>
+                    <td><x-boton>
+                            <x-slot name="class">
+                                boton azul
+                            </x-slot>
+                            <x-slot name="texto">
+                                ver +
+                            </x-slot>
+                            <x-slot name="href">
+                                {{ route('products.details', $product) }}
+                            </x-slot>
+                        </x-boton></td>
+            @endforeach
+            </tr>
 
 
-            </tbody>
-        </table>
-        {{ $products->links() }}
-    @else
-        <h1>no hay productos de la raza {{$race->desc}}</h1>
-    @endif
+        </tbody>
+    </table>
+    {{ $products->links() }}
+@else
+    <h1>no hay productos de la raza {{ $race->desc }}</h1>
+@endif
 @endsection

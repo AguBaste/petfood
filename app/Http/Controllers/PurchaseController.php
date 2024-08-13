@@ -24,14 +24,13 @@ class PurchaseController extends Controller
             ->orderByDesc('created_at')
             ->paginate(5)
             ->withQueryString(); 
-        $total = Purchase::whereMonth('created_at',$month)->sum('total');
+            $total = Purchase::whereMonth('created_at',$month)->sum('total');
 
         } else{
             //inicio con sales vacio
             $purchases= collect();
             $total =0;
-        }
-                     
+        }           
         return view('purchases.index',compact('purchases','total'));
       
     }
@@ -89,26 +88,23 @@ class PurchaseController extends Controller
             }else{
                 $product[0]->quantity += $item['quantity'];
                 $product[0]->save();
-            }
-
-            
+            }   
         }
-
-
         foreach ($stockCart as $item) {
             StockCart::where('id', $item['id'])->delete();
         }
-
         //regreso a la vista principal 
         return redirect('stockCart')->with('status','compra registrada exitosamente');
-
     }
     
     public function destroy(Purchase $purchase){
         $detalleCompra = ProductsPurchase::where('purchase_id',$purchase->id)->first();
         $stock = Stock::where('product_id',$detalleCompra->product_id)->first();
-        $stock->quantity -= $detalleCompra->quantity;
-        $stock->save();
+        if ($stock != null) {
+            $stock->quantity -= $detalleCompra->quantity;
+            $stock->update();
+            $purchase->delete();
+        }
         $purchase->delete();
         return redirect('purchases')->with('status','compra eliminada exitosamente');
     }

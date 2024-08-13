@@ -101,8 +101,10 @@ class SaleController extends Controller
     public function destroy(Sale $sale){
         $detalleVenta = ProductsSales::where('sale_id',$sale->id)->first();
         $stock = Stock::where('product_id',$detalleVenta->product_id)->first();
-        $stock->quantity += $detalleVenta->quantity;
-        $stock->save();
+        if ($stock != null) {
+            $stock->quantity -= $detalleCompra->quantity;
+            $stock->update();
+        }
         $sale->delete();
         return redirect('sales')->with('status','venta eliminada exitosamente');
     }

@@ -134,7 +134,9 @@ class ProductController extends Controller
         return redirect(route('products.details', compact('product')))->with('status','producto actualizado exitosamente.');
     }
     public function destroy(Product $product)
-    {
+    {   
+        $stock = Stock::where('product_id',$product->id)->first();
+        $stock->delete();
         $product->delete();
         return redirect(route('brands.index'))->with('status', 'producto eliminado exitosamente.');
     }

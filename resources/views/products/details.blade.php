@@ -35,7 +35,9 @@
        <form action="{{ route('products.destroy', $product) }}" method="post">
             @csrf
             @method('delete')
-            <input type="submit" class=" boton rojo" id="borrar" value="borrar">
+            <input type="submit" class=" boton rojo"  value="borrar" onclick="event.preventDefault();
+            if(confirm('Realmente desea borrar este producto'))
+            {this.form.submit();}">
         </form>
 
     </div>

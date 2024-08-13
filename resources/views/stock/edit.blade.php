@@ -7,7 +7,7 @@
     <form class="form" action="{{ route('stock.update', $stock) }}" method="post">
         @csrf
         @method('PATCH')
-        <input class="input-img" type="image" height="100" src="{{ asset('upload/' . $stock->product->image) }}">
+        <input class="input-img" type="image" src="{{ asset('upload/' . $stock->product->image) }}">
         <div class="cont-kilos-bolsas">
             <label for="bags">bolsas</label>
             <input class="edit-input" type="number" step="1" name="bags"
