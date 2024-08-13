@@ -14,7 +14,7 @@
                     <th>descripción</th>
                     <th>bolsas</th>
                     <th>kilos</th>
-                    <td>editar</td>
+                    <th>editar</th>
                 </tr>
             </thead>
             <tbody>
