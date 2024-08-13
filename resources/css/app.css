@@ -418,35 +418,34 @@ input:focus {
     gap: 20px;
 }
 .exito{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center ;
     background-color: var(--verde);
     width: 100%;
-    text-align: center;
-
     border-radius: 1rem;
     text-transform: uppercase;
+    height: auto;
+    padding: 10px;
 }
 .exito p{
     color: var(--gris-claro);
 }
-.modal{
-    width: auto;
+.det-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.edit-input{
+    width: 10rem;	
+}
+.input-img{
     height: auto;
-    border: .2rem solid var(--negro);
-    border-radius: 1rem;
-    position: absolute;
-    background-color: var(--gris-claro);
-    top: 30%;
-    z-index: 1;
-    padding: 2rem;
-    text-align: center;
-}
-.modal p{
-    text-transform: uppercase;
-
-}
-.modal a{
-    margin: 2rem;
+    width: 350px;
+    border: none;
+    box-shadow: none;
 }
 .ocultar{
-    visibility: hidden;
+    display: none ;
 }

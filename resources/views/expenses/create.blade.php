@@ -23,13 +23,10 @@
                 {{ $message }}
             @enderror
         </span>
-        <x-input-btn>
-            <x-slot name="class">
-                boton-form verde
-            </x-slot>
-            <x-slot name="value">
-                guardar
-            </x-slot>
-        </x-input-btn>
+       <input type="submit" value="guardar" class="boton verde" onclick="event.preventDefault();
+       if(confirm('Realmente desea registrar el siguiente gasto:\n'
+       + document.querySelector('input[name=desc]').value + ' por '
+       + document.querySelector('input[name=price]').value))
+       {this.form.submit();}">
     </form>
 @endsection

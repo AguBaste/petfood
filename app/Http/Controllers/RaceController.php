@@ -25,6 +25,9 @@ class RaceController extends Controller
         return view('races.edit',compact('race'));
     }
     public function update(Request $request, Race $race){
+        $request->validate([
+            'desc'=>'required'
+        ]);
         $race->desc = $request->desc;
         $race->update();
         return redirect('races')->with('status','raza actualizada exitosamente');

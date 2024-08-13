@@ -11,24 +11,24 @@
         <table class="table">
             <thead>
                 <tr>
-                    <td></td>
-                    <th>descripcion</th>
+                    <th>descripción</th>
                     <th>bolsas</th>
                     <th>kilos</th>
+                    <td>editar</td>
                 </tr>
             </thead>
             <tbody>
 
                 @foreach ($stocks as $stock)
                     <tr>
-                        <td><img src="{{ asset('upload/' . $stock->image) }}" class="mini-imagen" alt=""></td>
-                        <td>{{ $stock->product->brand->desc . ' ' . $stock->product->race->desc . ' ' . $stock->product->flavor->desc . ' ' . $stock->product->weight . ' kg' }}
+                        <td class="det-img"><img src="{{ asset('upload/' . $stock->image) }}" class="mini-imagen" alt="">{{ $stock->product->brand->desc . ' ' . $stock->product->race->desc . ' ' . $stock->product->flavor->desc . ' ' . $stock->product->weight . ' kg' }}
                         </td>
                         <td>
                             {{ floor($stock->quantity / $stock->product->weight) }}</td>
                         <td>
                             {{ ($stock->quantity / $stock->product->weight - floor($stock->quantity / $stock->product->weight)) * $stock->product->weight }} kg
                         </td>
+                        <td><a href="{{route('stock.edit',$stock)}}" class="boton verde">editar</a></td>
                     </tr>
                 @endforeach
             </tbody>

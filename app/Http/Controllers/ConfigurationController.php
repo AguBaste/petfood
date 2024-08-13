@@ -22,8 +22,8 @@ class ConfigurationController extends Controller
         ]);
 
         $config = new Configuration();
-        $config->open = $request->open;
-        $config->close = $request->close;
+        $config->open = '1.'.$request->open;
+        $config->close = '1.'.$request->close;
         $config->expenses = $request->expenses;
         $config->save();
         return redirect('configurations');

@@ -68,8 +68,9 @@
         <div class="vista">
             
             @if (session('status'))
-                <div class="exito">
+                <div class="exito" id="modal">
                     <p>{{ session('status') }}</p>
+                    <a href="" class="boton azul" id="cerrar">cerrar</a>
                 </div>
             @endif
             @yield('content')

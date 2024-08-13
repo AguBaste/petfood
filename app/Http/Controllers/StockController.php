@@ -17,4 +17,18 @@ class StockController extends Controller
 
         return view('stock.index',compact('stocks'));
     }
+    public function edit(Stock $stock){
+        return view('stock.edit', compact('stock'));
+    }
+    public function update(Stock $stock, Request $request){
+        $request->validate([
+            'bags'=>'required',
+            'pounds'=>'required'
+        ]);
+        // tengo que agregar al stock las bolsas y los kilso pero todo en kilos 
+        $nuevosKilos = ($request->bags * $stock->product->weight) + $request->pounds;
+        $stock->quantity = $nuevosKilos;
+        $stock->update();
+        return redirect('stock')->with('status','stock actualizado exitosamente');
+    }
 }

@@ -36,7 +36,14 @@
                         <form action="{{ route('expenses.destroy', $expense) }}" method="post">
                             @csrf
                             @method('delete')
-                            <input type="submit" class=" boton rojo" value="borrar">
+                            <input type="submit"
+                                onclick="event.preventDefault();
+                             if(confirm('Realmente desea borrar el gasto\n'
+                             + '{{$expense->desc}} por ' +' {{number_format($expense->price)}}' ))
+                             {
+                                    this.form.submit();
+                                };"
+                                class=" boton rojo" value="borrar">
                         </form>
                     </td>
                 </tr>

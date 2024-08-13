@@ -83,14 +83,9 @@
                             <form action="{{ route('cart.destroy', $item) }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <x-input-btn>
-                                    <x-slot name="class">
-                                        boton-form rojo
-                                    </x-slot>
-                                    <x-slot name="value">
-                                        Borrar
-                                    </x-slot>
-                                </x-input-btn>
+                               <input type="submit" class="boton rojo" value="borrar" onclick="event.preventDefault();
+                               if(confirm('Realmente desea borrar el producto ' + '{{$item->product->brand->desc .' '. $item->product->race->desc .' '. $item->product->flavor->desc .' '. $item->quantity .'kg \n de esta venta'}}'))
+                               {this.form.submit();}">
                             </form>
                         </td>
                     </tr>
@@ -114,14 +109,7 @@
             </span>
 
             <input type="hidden" name="cart" value="{{ json_encode($cart) }}">
-            <x-input-btn>
-                <x-slot name="class">
-                    boton-form verde
-                </x-slot>
-                <x-slot name="value">
-                    Cobrar
-                </x-slot>
-            </x-input-btn>
+           <input type="submit" class="boton verde" value="cobrar" onclick="event.preventDefault(); if(confirm('Por favor compruebe que todos los productos ingresados en esta venta sean correctos')){this.form.submit();}">
         </form>
     @endif
 @endsection

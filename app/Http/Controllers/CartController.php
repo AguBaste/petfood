@@ -25,16 +25,7 @@ class CartController extends Controller
     }
 
 
-    public function edit(Cart $cart)
-    {
-        $products = Product::select('products.*', 'brands.desc AS brand', 'flavors.desc AS flavor', 'races.desc AS race')
-        ->join('brands', 'products.brand_id', '=', 'brands.id')
-        ->join('flavors', 'products.flavor_id', '=', 'flavors.id')
-        ->join('races', 'products.race_id', '=', 'races.id')
-        ->orderBy('brands.desc')
-        ->get();
-        return view('cart.edit', compact('cart', 'products'));
-    }
+
 
     public function update(Request $request, Cart $cart)
     {

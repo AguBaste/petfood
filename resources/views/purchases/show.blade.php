@@ -51,13 +51,8 @@
      <form action="{{route('purchases.destroy',$purchase)}}" method="post">
          @csrf
          @method('delete')
-        <x-input-btn> 
-            <x-slot name="value">
-                borrar
-            </x-slot>
-            <x-slot name="class">
-                boton-form rojo
-            </x-slot>
-        </x-input-btn>
+       <input type="submit" value="borrar" class="boton rojo" onclick="event.preventDefault();
+       if(confirm('Realmente desea borrar esta compra'))
+       {this.form.submit();}">
     </form>
 @endsection

@@ -15,8 +15,8 @@ class AumentosController extends Controller
         return view('aumentos.index', compact('brands'));
     }
     public function show($brandId){
-        $brands = Brand::all();
-        return view('aumentos.show', compact('brandId','brands'));
+        $brand = Brand::where('id',$brandId)->first();
+        return view('aumentos.show', compact('brandId','brand'));
     }
     public function update($brandId,Request $request){
         $request->validate([
