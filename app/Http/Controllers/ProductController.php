@@ -33,15 +33,14 @@ class ProductController extends Controller
             ->where('products.brand_id', $brandId)
             ->orderBy('races.desc')
             ->paginate(5);
-            $stock = Stock::all();
         $config = Configuration::first();
-        return  view('products.index', compact('products', 'config','brand','stock'));
+        return  view('products.index', compact('products', 'config','brand'));
     }
     public function details(Product $product)
     {
-
+        $stock = Stock::where('product_id',$product->id)->first();
         $config = Configuration::first();
-        return view('products.details', compact('product', 'config'));
+        return view('products.details', compact('product', 'config','stock'));
     }
     public function complete(Product $product)
     {

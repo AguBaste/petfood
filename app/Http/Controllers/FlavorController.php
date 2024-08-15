@@ -20,9 +20,7 @@ class FlavorController extends Controller
         $products = Product::whereIn('flavor_id', [$flavorId])->paginate(5);
         $config = Configuration::first();
         $flavor = Flavor::where('id',$flavorId)->first();
-        $stock = Stock::all();
-
-        return  view('flavors.show', compact('products', 'config','flavor','stock'));
+        return  view('flavors.show', compact('products', 'config','flavor'));
     }
     public function create()
     {

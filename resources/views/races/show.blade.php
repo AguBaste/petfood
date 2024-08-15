@@ -29,26 +29,7 @@
                         <td>{{ $product->weight . ' kg' }}</td>
                         <td>$ {{ $product->price * $config->close }}</td>
                         <td>$ {{ round(($product->price / $product->weight) * $config->open + $config->expenses) }}</td>
-                        @php
-                            $b = false;
-                        @endphp
-                        @foreach ($stock as $item)
-                            @if ($item->product_id == $product->id)
-                                <td>
-                                    {{ floor($item->quantity / $item->product->weight) }} bolsa
-                                    {{ ($item->quantity / $item->product->weight - floor($item->quantity / $item->product->weight)) * $item->product->weight }}
-                                    kg
-                                </td>
-                                @php
-                                    $b = true;
-                                @endphp
-                            @break
-                        @endif
-                    @endforeach
-                    @if (!$b)
-                        <td>sin stock</td>
-                    @endif
-
+                      
                     <td><x-boton>
                             <x-slot name="class">
                                 boton azul

@@ -16,8 +16,20 @@
             <p>${{ number_format(round($product->price * $config->close, -1)) }} x bolsa
             </p>
             <p>$
-                {{ number_format(round(($product->price / $product->weight) * $config->open + $config->expenses, -1)) }} x kilo
-                </p>
+                {{ number_format(round(($product->price / $product->weight) * $config->open + $config->expenses, -1)) }} x
+                kilo
+            </p>
+            <p>cantidad en stock</p>
+            <p>
+                @if ($stock != null)
+                    {{ floor($stock->quantity / $stock->product->weight) }} bolsa
+                {{ ($stock->quantity / $stock->product->weight - floor($stock->quantity / $stock->product->weight)) * $stock->product->weight }}
+                kg
+                @else
+                    sin stock
+                @endif
+                
+            </p>
         </div>
     </div>
     <div class="btn-container">
@@ -32,10 +44,11 @@
                 {{ route('products.edit', $product) }}
             </x-slot>
         </x-boton>
-       <form action="{{ route('products.destroy', $product) }}" method="post">
+        <form action="{{ route('products.destroy', $product) }}" method="post">
             @csrf
             @method('delete')
-            <input type="submit" class=" boton rojo"  value="borrar" onclick="event.preventDefault();
+            <input type="submit" class=" boton rojo" value="borrar"
+                onclick="event.preventDefault();
             if(confirm('Realmente desea borrar este producto'))
             {this.form.submit();}">
         </form>

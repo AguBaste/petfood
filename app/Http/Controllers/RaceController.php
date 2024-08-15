@@ -35,11 +35,10 @@ class RaceController extends Controller
     public function show($raceId)
     {
         $products = Product::whereIn('race_id', [$raceId])->paginate(5);
-        $stock = Stock::all();
         $config = Configuration::first();
         $race = Race::where('id',$raceId)->first();
 
-        return  view('races.show', compact('products', 'config','stock','race'));
+        return  view('races.show', compact('products', 'config','race'));
     }
     public function store(Request $request)
     {

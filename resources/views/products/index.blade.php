@@ -33,32 +33,16 @@
                             {{ number_format(round(($product->price / $product->weight) * $config->open + $config->expenses, -1)) }}
                         </td>
 
-                        @php
-                            $b = false;
-                        @endphp
-                        @foreach ($stock as $item)
-                            @if ($item->product_id == $product->id)
-                                <td>
-                                    {{ floor($item->quantity / $item->product->weight) }} bolsa
-                                    {{ ($item->quantity / $item->product->weight - floor($item->quantity / $item->product->weight)) * $item->product->weight }}
-                                    kg
-                                </td>
-                                @php
-                                    $b = true;
-                                @endphp
-                            @break
-                        @endif
-                    @endforeach
-                    @if (!$b)
-                        <td>sin stock</td>
-                    @endif
-
+                       
+                    {{-- @if ($product->created_at != $product->updated_at)  
+                                <td>editado {{$product->updated_at->diffForHumans()}}</td>
+                    @endif --}}
                     <td><x-boton>
                             <x-slot name="class">
                                 boton azul
                             </x-slot>
                             <x-slot name="texto">
-                                ver foto
+                                ver +
                             </x-slot>
                             <x-slot name="href">
                                 {{ route('products.details', $product) }}

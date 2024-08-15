@@ -10,7 +10,7 @@
 
         <label for="valor">porcentaje a modificar</label>
         <input type="number" min="0" step="0.01" name="valor"
-            placeholder="Ingrese el porcentaje que desea para el aumento">
+            placeholder="Ingrese el porcentaje">
 
         <span>
             @error('valor')
