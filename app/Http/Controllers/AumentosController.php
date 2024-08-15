@@ -20,10 +20,11 @@ class AumentosController extends Controller
     }
     public function update($brandId,Request $request){
         $request->validate([
-            'valor'=>'required'
+            'valor'=>'required',
+            'type'=>'required'
         ]);
-        $request->valor = '1.'.$request->valor;
-        $aumento = $request->valor;
+        $valor = '1.'.$request->valor;
+        
           $products = Product::select('products.*', 'brands.desc AS brand', 'flavors.desc AS flavor', 'races.desc AS race')
             ->join('brands', 'products.brand_id', '=', 'brands.id')
             ->join('flavors', 'products.flavor_id', '=', 'flavors.id')
@@ -31,9 +32,18 @@ class AumentosController extends Controller
             ->where('products.brand_id', $brandId)
             ->orderBy('races.desc')
             ->get();
-            foreach($products as $product){
-                $product->update(['price'=> $product->price*$aumento]);
+
+            //si el type es * lo aumento 
+            if ($request->type == 'aumentar') {
+                foreach($products as $product){
+                $product->update(['price'=> $product->price*$valor]);
             }
-        return redirect(route('products.show',$brandId))->with('status','precios aumentados exitosamente.');
+                return redirect(route('products.show',$brandId))->with('status','precios aumentados exitosamente.');
+            }else {
+                foreach($products as $product){
+                $product->update(['price'=> $product->price/$valor]);
+            }
+                return redirect(route('products.show',$brandId))->with('status','precios disminuidos exitosamente.');
+    }   
     }
 }
