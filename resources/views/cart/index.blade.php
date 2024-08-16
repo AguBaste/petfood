@@ -72,7 +72,7 @@
                             @endif
                         </td>
                         <td>
-                            <div class="contenedor-detalle">
+                            <div class="det-img">
                                 <img class="mini-imagen" src="{{ asset('upload/' . $item->product->image) }}"
                                     alt="">{{ $item->product->brand->desc . ' ' . $item->product->flavor->desc . ' ' . $item->product->race->desc }}
                             </div>
