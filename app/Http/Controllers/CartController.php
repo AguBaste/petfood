@@ -25,16 +25,7 @@ class CartController extends Controller
     }
 
 
-    public function edit(Cart $cart)
-    {
-        $products = Product::select('products.*', 'brands.desc AS brand', 'flavors.desc AS flavor', 'races.desc AS race')
-        ->join('brands', 'products.brand_id', '=', 'brands.id')
-        ->join('flavors', 'products.flavor_id', '=', 'flavors.id')
-        ->join('races', 'products.race_id', '=', 'races.id')
-        ->orderBy('brands.desc')
-        ->get();
-        return view('cart.edit', compact('cart', 'products'));
-    }
+
 
     public function update(Request $request, Cart $cart)
     {
@@ -62,32 +53,33 @@ class CartController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([
+   
+
+ $request->validate([
             'product' => 'required',
-            'quantity' => 'required',
+            'amount' => 'required',
         ]);
         // me traigo el producto seleccionado para ver el precio.
-
-        $weight = Product::where('id',$request->product)->value('weight');
-        $price = Product::where('id',$request->product)->value('price');
         $config = Configuration::first();
-        $cart = new Cart();
-        $cart->product_id = (int)$request->product;
-        $cart->quantity = floatval($request->quantity);
-        //aca tengo que validar si los kilos son iguales a la bolsa cerrada
-
-        if ($cart->quantity% $weight == 0) {
-            $cant = $cart->quantity/ $weight;
-            $cart->price = ($price*$cant) * $config->close;
+        $product = Product::find($request->product);
+        
+        if (round($product->price*$config->close,-1) == $request->amount) {
+            
+            $cart = Cart::create([
+                'product_id'=> $request->product,
+                'quantity'=>$product->weight,
+                'price'=>$request->amount
+            ]);
+           
         } else {
-            $cart->price = round($price / $weight);
-            $cart->price *= $config->open;
-            $cart->price += (int) $config->expenses;
-            $cart->price *= $cart->quantity;
+            $product->price = round(($product->price * $config->open + $config->expenses)/$product->weight,-1);
+            $quantity = $request->amount / $product->price;
+           Cart::create([
+                'product_id'=> $request->product,
+                'quantity'=>round($quantity,3),
+                'price'=>$request->amount
+            ]);
         }
-         $cart->price = round($cart->price);
-
-        $cart->save();
         return redirect('cart');
     }
 

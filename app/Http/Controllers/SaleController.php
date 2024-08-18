@@ -96,6 +96,16 @@ class SaleController extends Controller
         }
 
         //regreso a la vista principal 
-        return redirect('cart');
+        return redirect('cart')->with('status','compara registrada exitosamente');
+    }
+    public function destroy(Sale $sale){
+        $detalleVenta = ProductsSales::where('sale_id',$sale->id)->first();
+        $stock = Stock::where('product_id',$detalleVenta->product_id)->first();
+        if ($stock != null) {
+            $stock->quantity -= $detalleCompra->quantity;
+            $stock->update();
+        }
+        $sale->delete();
+        return redirect('sales')->with('status','venta eliminada exitosamente');
     }
 }

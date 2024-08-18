@@ -10,10 +10,16 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const response = await fetch(`products/${id}/valor`);
             const data = await response.json();
+<<<<<<< HEAD
             console.log(data);
             contenedor.style.display = 'flex';
             precioBolsa.innerHTML += data.bolsa ;
             precioKilo.innerHTML += data.kilo
+=======
+            contenedor.style.display = 'flex';
+            precioBolsa.innerHTML = data.bolsa ;
+            precioKilo.innerHTML = data.kilo
+>>>>>>> b7121499d4a80c2c0e795e429600815ab30eab48
             img.src = "upload/"+data.image;
         } catch (error) {
             console.error("Error al obtener detalles del producto", error);

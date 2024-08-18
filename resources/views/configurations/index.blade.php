@@ -5,7 +5,7 @@
 @section('content')
 <h1 class="titulo">Configuraciones</h1>
 <img src="{{asset('img/config.jpeg')}}" alt="" class="imagen">
-@if($config->isEmpty())
+@if($config == null)
 <x-boton>
     <x-slot name="href">
         {{ route('configurations.create', $config) }}
@@ -28,9 +28,9 @@
     </thead>
     <tbody>
         <tr>
-            <td>{{ $config[0]->close }} <span class="texto-verde">%</span></td>
-            <td>{{ $config[0]->open }} <span class="texto-verde">%</span></td>
-            <td><span class="texto-verde">$</span> {{ $config[0]->expenses }}</td>
+            <td>{{ round(($config->close -1) * 100) }} <span class="texto-verde">%</span></td>
+            <td>{{ round(($config->open -1) * 100) }} <span class="texto-verde">%</span></td>
+            <td><span class="texto-verde">$</span> {{ $config->expenses }}</td>
         </tr>
 
     </tbody>
@@ -38,7 +38,7 @@
   
     <x-boton>
         <x-slot name="href">
-            {{ route('configurations.edit', $config[0]) }}
+            {{ route('configurations.edit', $config) }}
         </x-slot>
         <x-slot name="texto">
             editar

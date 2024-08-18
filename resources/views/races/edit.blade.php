@@ -9,14 +9,12 @@
     @method('patch')
     <label for="desc">Nombre </label>
         <input type="text" name="desc" value="{{$race->desc}}">
-
-    <x-input-btn>
-        <x-slot name="value">
-             actualizar
-        </x-slot>
-        <x-slot name="class">    
-            boton-form verde
-        </x-slot>
-    </x-input-btn>
+         <span>
+                @error('desc')
+                    {{ $message }}
+                @enderror
+            </span>
+    <input type="submit" class="boton verde" value="actualizar" onclick="event.preventDefault();if(confirm('Realmente desea actualizar la raza '+'{{$race->desc}}'+ ' por la nueva raza  ' + document.querySelector('input[name=desc]').value)){
+    this.form.submit();}">
 </form>
 @endsection

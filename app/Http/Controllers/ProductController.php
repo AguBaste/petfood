@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Configuration;
 use App\Models\Flavor;
 use App\Models\Product;
+use App\Models\Stock;
 use App\Models\Race;
 use App\Models\Provider;
 use Illuminate\Http\Request;
@@ -17,15 +18,14 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    public function index(Product $products, Configuration $config)
+    public function index(Product $products, Configuration $config,Stock $stock)
     {
 
-        return view('aumentos.index', compact('config', 'products'));
+        return view('products.index', compact('config', 'products','stock'));
     }
     public function show($brandId)
     {
-        // $products = Product::whereIn('brand_id', [$brandId])->get();
-
+        $brand = Brand::where('id',$brandId)->first();
         $products = Product::select('products.*', 'brands.desc AS brand', 'flavors.desc AS flavor', 'races.desc AS race')
             ->join('brands', 'products.brand_id', '=', 'brands.id')
             ->join('flavors', 'products.flavor_id', '=', 'flavors.id')
@@ -33,29 +33,38 @@ class ProductController extends Controller
             ->where('products.brand_id', $brandId)
             ->orderBy('races.desc')
             ->paginate(5);
-
         $config = Configuration::first();
-
-        return  view('products.index', compact('products', 'config'));
+        return  view('products.index', compact('products', 'config','brand'));
     }
     public function details(Product $product)
     {
-
+        $stock = Stock::where('product_id',$product->id)->first();
         $config = Configuration::first();
-        return view('products.details', compact('product', 'config'));
+        return view('products.details', compact('product', 'config','stock'));
     }
     public function complete(Product $product)
     {
+
         return $product;
+    }
+    public function valor(Product $product)
+    {
+        $price =  $product->price;
+        $config = Configuration::first();
+        $data=[]; 
+        $data['bolsa'] = round($price*$config->close,-1);
+        $data['kilo'] =  round(($price / $product->weight) * $config->open + $config->expenses, -1) ;
+        $data['image'] = $product->image;
+        return $data;
     }
 
     public function create()
     {
         $brands = Brand::orderBy('desc', 'asc')->get();
+        $races = Race::orderBy('desc','asc')->get();
+        $flavors = Flavor::orderBy('desc','asc')->get();
+        return view('products.create',compact('brands','races','flavors'));
 
-        $races = Race::orderBy('desc', 'asc')->get();
-        $flavors = Flavor::orderBy('desc', 'asc')->get();
-        return view('products.create', compact('brands', 'races', 'flavors'));
     }
     public function store(Request $request)
     {
@@ -85,7 +94,7 @@ class ProductController extends Controller
             'image' => $image_name
         ]);
         $config = Configuration::first();
-        return view('products.details', compact('product', 'config'));
+        return redirect(route('products.details',compact('product')))->with('status','producto creado exitosamente');
     }
 
     public function edit(Product $product)
@@ -103,7 +112,6 @@ class ProductController extends Controller
             'race' => 'required',
             'flavor' => 'required',
             'weight' => 'required',
-            'image' => 'required',
             'price' => 'required'
         ]);
         $product->brand_id = (int)$request->brand;
@@ -122,11 +130,13 @@ class ProductController extends Controller
         }
        
         $product->update();
-        return view('layout.exito');
+        return redirect(route('products.details', compact('product')))->with('status','producto actualizado exitosamente.');
     }
     public function destroy(Product $product)
-    {
+    {   
+        $stock = Stock::where('product_id',$product->id)->first();
+        $stock->delete();
         $product->delete();
-        return view('layout.exito');
+        return redirect(route('brands.index'))->with('status', 'producto eliminado exitosamente.');
     }
 }

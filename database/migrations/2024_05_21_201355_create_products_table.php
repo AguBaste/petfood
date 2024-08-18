@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('brand_id')->constrained();
-            $table->foreignId('race_id')->constrained();
-            $table->foreignId('flavor_id')->constrained();
+            $table->foreignId('brand_id')->cascade();
+            $table->foreignId('race_id')->cascade();
+            $table->foreignId('flavor_id')->cascade();
             $table->float('weight');
             $table->decimal('price',10,2);
             $table->string('image');

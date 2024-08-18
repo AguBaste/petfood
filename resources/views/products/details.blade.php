@@ -12,24 +12,46 @@
             <p>{{ $product->brand->desc }}</p>
             <p>{{ $product->race->desc }}</p>
             <p>{{ $product->flavor->desc }}</p>
-            <p>{{ $product->weight }}<span class="texto-verde"> kg</span></p>
-            <p><span class="texto-verde">$</span> {{ number_format($product->price * $config->close) }} x Bolsa</p>
-            <p><span class="texto-verde">$</span>
-                {{ number_format(($product->price / $product->weight) * $config->open + $config->expenses) }} Suelto</p>
+            <p>{{ $product->weight }} kg</p>
+            <p>${{ number_format(round($product->price * $config->close, -1)) }} x bolsa
+            </p>
+            <p>$
+                {{ number_format(round(($product->price / $product->weight) * $config->open + $config->expenses, -1)) }} x
+                kilo
+            </p>
+            <p>cantidad en stock</p>
+            <p>
+                @if ($stock != null)
+                    {{ floor($stock->quantity / $stock->product->weight) }} bolsa
+                {{ ($stock->quantity / $stock->product->weight - floor($stock->quantity / $stock->product->weight)) * $stock->product->weight }}
+                kg
+                @else
+                    sin stock
+                @endif
+                
+            </p>
         </div>
     </div>
+    <div class="btn-container">
+        <x-boton>
+            <x-slot name="class">
+                boton verde
+            </x-slot>
+            <x-slot name="texto">
+                editar
+            </x-slot>
+            <x-slot name="href">
+                {{ route('products.edit', $product) }}
+            </x-slot>
+        </x-boton>
+        <form action="{{ route('products.destroy', $product) }}" method="post">
+            @csrf
+            @method('delete')
+            <input type="submit" class=" boton rojo" value="borrar"
+                onclick="event.preventDefault();
+            if(confirm('Realmente desea borrar este producto'))
+            {this.form.submit();}">
+        </form>
 
-    <x-boton>
-        <x-slot name="class">
-            boton verde
-        </x-slot>
-        <x-slot name="texto">
-            editar
-        </x-slot>
-        <x-slot name="href">
-            {{ route('products.edit', $product) }}
-        </x-slot>
-    </x-boton>
-
-
+    </div>
 @endsection

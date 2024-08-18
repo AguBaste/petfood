@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Configuration;
 use App\Models\Flavor;
+use App\Models\Stock;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -18,8 +19,8 @@ class FlavorController extends Controller
     {
         $products = Product::whereIn('flavor_id', [$flavorId])->paginate(5);
         $config = Configuration::first();
-
-        return  view('flavors.show', compact('products', 'config'));
+        $flavor = Flavor::where('id',$flavorId)->first();
+        return  view('flavors.show', compact('products', 'config','flavor'));
     }
     public function create()
     {
@@ -31,7 +32,7 @@ class FlavorController extends Controller
     public function update(Request $request, Flavor $flavor){
         $flavor->desc = $request->desc;
         $flavor->update();
-        return view('layout.exito');
+        return redirect('flavors')->with('status','sabor actualizado exitosamente');
     }
     public function store(Request $request)
     {
@@ -40,6 +41,6 @@ class FlavorController extends Controller
         ]);
         Flavor::firstOrCreate(['desc' => $request->desc]);
         
-        return redirect('flavors');
+        return redirect('flavors')->with('status','sabor creado exitosamente');
     }
 }

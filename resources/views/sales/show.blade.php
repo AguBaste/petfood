@@ -3,6 +3,7 @@
 @section('titulo', 'ventas')
 
 @section('content')
+    <h1>Detalle de venta</h1>
     <table class="table">
         <thead>
             <tr>
@@ -18,10 +19,11 @@
                 <td>{{ $sale->created_at->format('H:i') }}</td>
                 <td>{{ $sale->payment->desc }}</>
                 </td>
-                <td><span class="texto-verde">$</span>{{number_format( $sale->total) }}</td>
+                <td><span class="texto-verde">$</span>{{ number_format($sale->total) }}</td>
             </tr>
         </tbody>
     </table>
+
     <table class="table">
         <thead>
             <tr>
@@ -32,20 +34,35 @@
         </thead>
         <tbody>
             @foreach ($detailSale as $sale)
-                <tr>
-                    <td>
-                        @if ($sale->quantity < 1)
-                            {{ $sale->quantity . ' kg' }}
-                        @else
-                            {{ $sale->quantity % $sale->product->weight == 0 ? $sale->quantity / $sale->product->weight . ' bolsa/s' : $sale->quantity . ' kg' }}
-                        @endif
-                    </td>
-                    <td>{{ $sale->product->brand->desc . ' ' . $sale->product->race->desc . ' ' . $sale->product->flavor->desc }}
-                    </td>
-                    <td><span class="texto-verde">$ </span>{{number_format( $sale->price) }}</td>
-                </tr>
+                @if ($sale->product == null)
+                    <tr>
+                        <td>no hay detalles, el producto fue borrado</td>
+
+                    </tr>
+                @else
+                    <tr>
+                        <td>
+                            @if ($sale->quantity < 1)
+                                {{ $sale->quantity . ' kg' }}
+                            @else
+                                {{ $sale->quantity % $sale->product->weight == 0 ? $sale->quantity / $sale->product->weight . ' bolsa/s' : $sale->quantity . ' kg' }}
+                            @endif
+                        </td>
+                        <td>{{ $sale->product->brand->desc . ' ' . $sale->product->race->desc . ' ' . $sale->product->flavor->desc }}
+                        </td>
+                        <td><span class="texto-verde">$ </span>{{ number_format($sale->price) }}</td>
+
+                    </tr>
+                @endif
             @endforeach
         </tbody>
     </table>
+    <form action="{{ route('sales.destroy', $sale) }}" method="post">
+        @csrf
+        @method('delete')
+        <input type="submit" value="borrar" class="boton rojo" onclick="event.preventDefault();
+       if(confirm('Realmente desea borrar esta venta'))
+       {this.form.submit();}">
+    </form>
 
 @endsection

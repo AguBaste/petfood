@@ -6,87 +6,86 @@
 
     <h1>nueva venta</h1>
     <img class="imagen" src="{{ asset('img/dolares.jpeg') }}" alt="">
-    <form class="form fondo" action="{{ route('cart.store') }}" method="post">
+    <form id="form-venta" class="form" action="{{ route('cart.store') }}" method="post">
         @csrf
         <label for="product">Producto</label>
         <select name="product">
             <option value="" disabled selected>seleccione un producto</option>
             @foreach ($products as $product)
                 <option class="option" value="{{ $product->id }}">
-                    {{ $product->brand . ' ' . $product->flavor . ' ' . $product->race . ' ' . $product->weight . ' kg' }}
+                   {{$product->brand . ' '. $product->race. ' '.$product->flavor .' '.$product->weight .' kg'}}
                 </option>
             @endforeach
         </select>
+
         <span>
             @error('product')
                 {{ $message }}
             @enderror
         </span>
-        <label for="quantity">kilos </label>
-        <input type="number" step="0.001" min="0"name="quantity" placeholder="ingrese la cantidad de kilos">
+        <div class="contenedor-foto-precio">
+            <img name="img" class="imagen-compra" alt="">
+            <div class="contenedor-todo">
+                <p>Precio X bolsa</p>
+                <p id="precioBolsa"><span class="texto-verde">$ </span></p>
+                <p>Precio X kilo</p>
+                <p id="precioKilo"><span class="texto-verde">$ </span></p>
+                <label for="amount">cantidad de plata</label>
+                <input class="input-compra" type="number" step="0.001" min="0"name="amount"
+                    value="{{ old('amount') }}" placeholder="plata a vender">
 
-        <span>
-            @error('quantity')
-                {{ $message }}
-            @enderror
-        </span>
+                <span>
+                    @error('amount')
+                        {{ $message }}
+                    @enderror
+                </span>
+                <x-input-btn>
+                    <x-slot name="class">
+                        boton-form azul
+                    </x-slot>
+                    <x-slot name="value">
+                        Agregar mas productos
+                    </x-slot>
+                </x-input-btn>
+            </div>
 
-        <x-input-btn>
-            <x-slot name="class">
-                boton-form azul
-            </x-slot>
-            <x-slot name="value">
-                Agregar mas productos
-            </x-slot>
-        </x-input-btn>
+
+        </div>
+
+
     </form>
-    @isset($cart)
-    @endisset
     @if (count($cart) > 0)
         <table class="table">
             <thead>
                 <th>kilos/bolsas</th>
                 <th>Producto</th>
-                <th>Pecio</th>
+                <th>Precio</th>
             </thead>
             <tbody>
                 @foreach ($cart as $item)
                     <tr>
                         <td>
-                            @if ($item->quantity < 1)
-                                {{ $item->quantity }}
+                            @if ($item->quantity === $item->product->weight)
+                                1 <span class="texto-verde">bolsa</span>
                             @else
-                                {{ $item->quantity % $item->product->weight == 0 ? $item->quantity / $item->product->weight . ' bolsa/s' : $item->quantity . ' kg' }}
+                                {{ $item->quantity }} <span class="texto-verde"> kg</span>
                             @endif
                         </td>
-                        <td>{{ $item->product->brand->desc . ' ' . $item->product->flavor->desc . ' ' . $item->product->race->desc }}
+                        <td>
+                            <div class="det-img">
+                                <img class="mini-imagen" src="{{ asset('upload/' . $item->product->image) }}"
+                                    alt="">{{ $item->product->brand->desc . ' ' . $item->product->flavor->desc . ' ' . $item->product->race->desc }}
+                            </div>
                         </td>
                         <td><span class="texto-verde">$</span> {{ number_format($item->price) }}</td>
-                        <td>
-                            <x-boton>
-                                <x-slot name="class">
-                                    boton verde
-                                </x-slot>
-                                <x-slot name="texto">
-                                    Editar
-                                </x-slot>
-                                <x-slot name="href">
-                                    {{ route('cart.edit', $item) }}
-                                </x-slot>
-                            </x-boton>
-                        </td>
+
                         <td>
                             <form action="{{ route('cart.destroy', $item) }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <x-input-btn>
-                                    <x-slot name="class">
-                                        boton-form rojo
-                                    </x-slot>
-                                    <x-slot name="value">
-                                        Borrar
-                                    </x-slot>
-                                </x-input-btn>
+                               <input type="submit" class="boton rojo" value="borrar" onclick="event.preventDefault();
+                               if(confirm('Realmente desea borrar el producto ' + '{{$item->product->brand->desc .' '. $item->product->race->desc .' '. $item->product->flavor->desc .' '. $item->quantity .'kg \n de esta venta'}}'))
+                               {this.form.submit();}">
                             </form>
                         </td>
                     </tr>
@@ -110,17 +109,7 @@
             </span>
 
             <input type="hidden" name="cart" value="{{ json_encode($cart) }}">
-            <x-input-btn>
-                <x-slot name="class">
-                    boton-form verde
-                </x-slot>
-                <x-slot name="value">
-                    Cobrar
-                </x-slot>
-            </x-input-btn>
+           <input type="submit" class="boton verde" value="cobrar" onclick="event.preventDefault(); if(confirm('Por favor compruebe que todos los productos ingresados en esta venta sean correctos')){this.form.submit();}">
         </form>
     @endif
-
-
-
 @endsection

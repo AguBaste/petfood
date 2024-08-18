@@ -17,7 +17,7 @@
                             {{ route('aumentos.show', $brand->id) }}
                         </x-slot>
                         <x-slot name="texto">
-                            aumentar precios
+                            modificar precio
                         </x-slot>
                         <x-slot name="class">
                             boton azul

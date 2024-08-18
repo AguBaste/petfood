@@ -10,13 +10,7 @@
     <label for="desc">Nombre </label>
         <input type="text" name="desc" value="{{$flavor->desc}}">
    
-    <x-input-btn>
-        <x-slot name="value">
-             actualizar
-        </x-slot>
-        <x-slot name="class">    
-            boton-form verde
-        </x-slot>
-    </x-input-btn>
+       <input type="submit" class="boton verde" value="actualizar" onclick="event.preventDefault();if(confirm('Realmente desea actualizar el sabor '+'{{$flavor->desc}}'+ ' por el nuevo sabor  ' + document.querySelector('input[name=desc]').value)){
+    this.form.submit();}">
 </form>
 @endsection

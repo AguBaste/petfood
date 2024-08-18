@@ -14,6 +14,10 @@ use App\Http\Controllers\StockCartController;
 use App\Http\Controllers\AumentosController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\SecurityController;
+use App\Http\Controllers\ExpensesController;
+
+
 
 use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class)->name('dashboard');
@@ -22,7 +26,7 @@ Route::get('/', HomeController::class)->name('dashboard');
 Route::resource('products', ProductController::class);
 Route::get('products/{product}/details',[ProductController::class,'details'])->name('products.details');
 Route::get('products/{product}/complete',[ProductController::class,'complete'])->name('products.complete');
-
+Route::get('products/{product}/valor',[ProductController::class,'valor'])->name('products.valor');
 //rutas para el carrito de ventas 
 Route::resource('cart', CartController::class);
 
@@ -31,7 +35,7 @@ Route::resource('sales', SaleController::class);
 
 // rutas para administra las marcas 
 Route::resource('brands', BrandController::class);
-
+Route::get('brands/{id}/find',[BrandController::class,'find'])->name('brands.find');
 // rutas para admitistra las razas 
 Route::resource('races', RaceController::class);
 
@@ -55,3 +59,7 @@ Route::resource('purchases',PurchaseController::class);
 
 // rutas para el stock
 Route::resource('stock',StockController::class);
+
+// rutas de seguridad
+Route::resource('security',SecurityController::class);
+Route::resource('expenses',ExpensesController::class);
