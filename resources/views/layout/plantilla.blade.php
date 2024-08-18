@@ -16,12 +16,12 @@
 
 <body>
     <main class="contenedor">
-        <aside class="barra">
+        <aside id="bar" class="barra">
             <h3>Pet Food</h3>
             <div class="barra-lista">
-                <p><a href="{{ route('dashboard') }}"
+                <p><a href="{{ route('dashboard') }}" 
                         class="{{ request()->routeIs('dashboard') ? 'activo' : '' }}">inicio</a></p>
-                <p><a href="{{ route('cart.index') }}"
+                <p><a href="{{ route('cart.index') }}" 
                         class="{{ request()->routeIs('cart.index') ? 'activo' : '' }}">ingreso caja</a></p>
                 <p><a
                         href="{{ route('stock.index') }}"class="{{ request()->routeIs('stock.index') ? 'activo' : '' }}">Stock</a>
@@ -65,7 +65,7 @@
 
             </div>
         </aside>
-        <div class="vista">
+        <div id="view" class="vista agrandar">
             
             @if (session('status'))
                 <div class="exito" id="modal">

@@ -67,11 +67,11 @@
                 @foreach ($stockCart as $item)
                     <tr>
                         <td>{{ $item->quantity / $item->product->weight . ' bolsa/s' }}</td>
-                        <td>
-                            <div class="contenedor-detalle">
+                        <td class="det-img">
+                            
                                 <img src="{{ asset('upload/' . $item->product->image) }}" class="mini-imagen" alt="">
                                 {{ $item->product->brand->desc . ' ' . $item->product->race->desc . ' ' . $item->product->flavor->desc . ' ' . $item->product->weight . ' kg' }}
-                            </div>
+                            
                         </td>
                         <td><span class="texto-verde">$</span> {{ number_format($item->price) }}</td>
 

@@ -8,6 +8,15 @@
     @if ($stocks->isEmpty())
         <h1>no tienes productos en stock</h1>
     @else
+        <h1 class="titulo">total de bolsas cerradas</h1>
+        @php
+            $totalBolsas = 0; 
+            foreach ($stocks as $stock) {
+                $totalBolsas += floor($stock->quantity / $stock->weight);
+            }
+            
+        @endphp
+        <h2 class="titulo">{{$totalBolsas}}</h2>
         <table class="table">
             <thead>
                 <tr>

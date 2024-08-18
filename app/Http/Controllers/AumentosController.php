@@ -23,7 +23,12 @@ class AumentosController extends Controller
             'valor'=>'required',
             'type'=>'required'
         ]);
-        $valor = '1.'.$request->valor;
+        if ($request->valor < 10) {
+            $valor = '1.0'.$request->valor;
+        }else{
+            $valor = '1.'.$request->valor;
+        }
+        //$valor = '1.'.$request->valor;
         
           $products = Product::select('products.*', 'brands.desc AS brand', 'flavors.desc AS flavor', 'races.desc AS race')
             ->join('brands', 'products.brand_id', '=', 'brands.id')

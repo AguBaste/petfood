@@ -21,20 +21,14 @@
 
             <input class="edit-input" step="0.001" type="number" name="pounds"
                 value="{{ ($stock->quantity / $stock->product->weight - floor($stock->quantity / $stock->product->weight)) * $stock->product->weight }}">
-         <span>
+            <span>
                 @error('pounds')
                     {{ $message }}
                 @enderror
             </span>
-            </div>
+        </div>
         <input type="submit" class="boton verde" value="Actualizar"
-            onclick="event.preventDefault();
-        if(confirm('Realmente quiere modificar el stock \n'
-        + 'Bolsas anterior = {{ floor($stock->quantity / $stock->product->weight) }} bolsas nuevo = ' + document.querySelector('input[name=bags]').value
-        + '\nKilos anterior = {{ ($stock->quantity / $stock->product->weight - floor($stock->quantity / $stock->product->weight)) * $stock->product->weight }} kilos nuevo = ' + document.querySelector('input[name=pounds]').value)) {
-            this.form.submit();
-        }">
-
-
-    </form>
-@endsection
+            onclick="event.preventDefault(); if(prompt('ingrese clave')==='soyjorge'){
+            this.closest('form').submit();}"
+            </form>
+    @endsection
